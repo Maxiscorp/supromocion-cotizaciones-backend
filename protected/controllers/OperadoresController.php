@@ -6,8 +6,9 @@ class OperadoresController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column1';
+	public $layout='//layouts/misdatos';
 
+    public $paginaactual = 'Usuarios';
 	/**
 	 * @return array action filters
 	 */
@@ -28,7 +29,7 @@ class OperadoresController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin'),
+				'actions'=>array('create','update','admin','password'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -82,6 +83,7 @@ class OperadoresController extends Controller
 	 */
 	public function actionUpdate($success="ERROR")
 	{
+		$this->paginaactual="Misdatos";
 		if(isset($success)){
 		
 			if($success=="OK"){
@@ -106,7 +108,34 @@ class OperadoresController extends Controller
 			'model'=>$model,
 		));
 	}
+	public function actionPassword($success="ERROR")
+	{
+	
+		$this->paginaactual="Password";
+		if(isset($success)){
+		
+			if($success=="OK"){
+				Yii::app()->user->setFlash('success', "Sus contraseña de ha modificado con éxito!");
+			}
+		}
+		$model=$this->loadModel(Yii::app()->user->getState('idoperador'));
+		$model->scenario="password";
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
 
+		if(isset($_POST['Operadores']))
+		{
+		
+			$model->attributes=$_POST['Operadores'];
+			$model->password=$model->password_new;
+			if($model->save())
+				$this->redirect('update/success/OK');
+		}
+		$model->password="";
+		$this->render('password',array(
+			'model'=>$model,
+		));
+	}
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.

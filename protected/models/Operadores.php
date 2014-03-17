@@ -42,12 +42,12 @@ class Operadores extends CActiveRecord
 			array('idoperador_tipo, activo', 'numerical', 'integerOnly'=>true),
 			array('nombre, apellido, usuario, email', 'length', 'max'=>100),
 			array('password', 'length', 'max'=>128),
-			array('password_new,password_new_repeat', 'required', 'on'=>'actualizar'),
-			array('password_new', 'compare', 'compareAttribute'=>'password_new_repeat', 'on'=>'actualizar'),
+			array('password,password_new,password_new_repeat', 'required', 'on'=>'password'),
+			array('password_new', 'compare', 'compareAttribute'=>'password_new_repeat', 'on'=>'password'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('idoperador, nombre, apellido, usuario, password, email, idoperador_tipo, activo', 'safe', 'on'=>'search'),
-			array('nombre, apellido, usuario, password, email', 'safe', 'on'=>'actualizar'),
+			array('nombre, apellido, usuario, email', 'safe', 'on'=>'actualizar'),
 			
 		);
 	}
@@ -73,7 +73,7 @@ class Operadores extends CActiveRecord
 	{
 		switch($this->scenario)
 		{
-			case 'actualizar':
+			case 'password':
 				return array(
 					'idoperador' => 'Idoperador',
 					'nombre' => 'Nombre',
@@ -81,7 +81,7 @@ class Operadores extends CActiveRecord
 					'usuario' => 'Usuario',
 					'password' => 'Contraseña anterior',
 					'password_new' => 'Contraseña nueva',
-					'password_new_repeat' => 'Contraseña nueva',
+					'password_new_repeat' => 'Confirmar contraseña nueva',
 					'email' => 'Email',
 					'idoperador_tipo' => 'Idoperador Tipo',
 					'activo' => 'Activo',
