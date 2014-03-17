@@ -17,17 +17,28 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
-		if(!isset($users[$this->username]))
+		
+		$record_login=Operadores::model()->findByAttributes(array('usuario'=>$this->username,'activo'=>true)); 
+		
+		if($record_login===null)
+		{ 
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
+		}
+		else if($record_login->password!==hash('sha512', $this->password))            // here I compare db password with password field
+		{ 			
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
-			$this->errorCode=self::ERROR_NONE;
+			
+		}else{
+			if($record_login->idoperador_tipo==2){
+				$this->setState('administrador',1);  
+			}
+			$this->setState('idoperador',$record_login->idoperador);
+			$this->setState('nombre', $record_login->nombre);  
+			$this->setState('apellido',$record_login->apellido);  
+			$this->setState('usuario',$record_login->usuario);  
+			$this->setState('email',$record_login->email);  
+			$this->errorCode=self::ERROR_NONE; 
+		}
 		return !$this->errorCode;
 	}
 }

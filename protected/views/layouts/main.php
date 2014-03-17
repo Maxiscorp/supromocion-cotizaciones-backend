@@ -1,10 +1,10 @@
 <?php /* @var $this Controller */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
-
+	<meta name="language" content="es" />
+	<link type="image/x-icon" href="/favicon.ico" rel="shortcut icon" />
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
@@ -23,17 +23,27 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+		<div class="logo" style="float:left;" ><?php echo "Sistema de cotizaciones"; ?> </div>
+		<div id="logo" style="float:right;"> <img src="../images/logo.gif" /></div>
+		
+	<div class="clear"></div>
 	</div><!-- header -->
 
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
+				/*array('label'=>'Inicio', 'url'=>array('/site/index'),'visible'=>!Yii::app()->user->isGuest),*/
+				array('label'=>'Cotizaciones', 'url'=>array('/site/page', 'view'=>'about'),'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'ABMs', 'url'=>array('/site/page', 'view'=>'abourt'),'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Mis Datos', 'url'=>array('/operadores/update'),'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				
+				
+				array('label'=>'Salir ('.Yii::app()->user->getState('nombre').' '.Yii::app()->user->getState('apellido').')', 
+				'url'=>array('/site/logout'), 
+				'visible'=>!Yii::app()->user->isGuest,
+				'itemOptions'=>array('class'=>'css-item'),
+				)
 			),
 		)); ?>
 	</div><!-- mainmenu -->
