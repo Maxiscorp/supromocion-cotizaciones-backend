@@ -80,10 +80,13 @@ class OperadoresController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($success="OK")
+	public function actionUpdate($success="ERROR")
 	{
-		if($success=="OK"){
-			Yii::app()->user->setFlash('success', "Sus datos de han modificado con éxito!");
+		if(isset($success)){
+		
+			if($success=="OK"){
+				Yii::app()->user->setFlash('success', "Sus datos de han modificado con éxito!");
+			}
 		}
 		$model=$this->loadModel(Yii::app()->user->getState('idoperador'));
 		$model->scenario="actualizar";
@@ -96,7 +99,7 @@ class OperadoresController extends Controller
 			$model->attributes=$_POST['Operadores'];
 			$model->password=$model->password_new;
 			if($model->save())
-				$this->redirect(array('update'),array('success'=>'OK'));
+				$this->redirect('update/success/OK');
 		}
 		$model->password="";
 		$this->render('update',array(
