@@ -6,6 +6,7 @@
 	<meta name="language" content="es" />
 	<link type="image/x-icon" href="/favicon.ico" rel="shortcut icon" />
 	<!-- blueprint CSS framework -->
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/custom.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
 	<!--[if lt IE 8]>
@@ -13,7 +14,6 @@
 	<![endif]-->
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/custom.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -35,7 +35,7 @@
 			'items'=>array(
 				/*array('label'=>'Inicio', 'url'=>array('/site/index'),'visible'=>!Yii::app()->user->isGuest),*/
 				array('label'=>'Cotizaciones', 'url'=>array('/site/page', 'view'=>'about'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'ABMs', 'url'=>array('/site/page', 'view'=>'abourt'),'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'ABMs', 'url'=>array('/materiales/admin'),'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Mis Datos', 'url'=>array('/operadores/update'),'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				

@@ -59,7 +59,7 @@ class Materiales extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'idmaterial' => 'Idmaterial',
+			'idmaterial' => 'Codigo material',
 			'nombre' => 'Nombre',
 			'descripcion' => 'Descripcion',
 			'activo' => 'Activo',
@@ -87,7 +87,7 @@ class Materiales extends CActiveRecord
 		$criteria->compare('idmaterial',$this->idmaterial);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
-		$criteria->compare('activo',$this->activo);
+		$criteria->compare('activo',1);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

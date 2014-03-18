@@ -61,6 +61,11 @@ return array(
                     'themeUrl' => '/css',
                     'theme' => 'cjuiaccordion',
                 ),
+                'CJuiTabs' => array(
+                    'themeUrl' => '/css',
+                    'theme' => 'cjuitabs',
+                    'cssFile' => 'jquery-ui.css',
+                ),
         )),
         'urlManager' => array(
             'urlFormat' => 'path',
