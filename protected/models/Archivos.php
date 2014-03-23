@@ -16,6 +16,7 @@
  * @property CotizacionesParciales[] $cotizacionesParciales
  * @property ProductosImagenes[] $productosImagenes
  */
+
 class Archivos extends CActiveRecord
 {
 	/**
@@ -34,9 +35,9 @@ class Archivos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre_archivo, ruta_archivo, fecha_ingreso', 'required'),
 			array('activo', 'numerical', 'integerOnly'=>true),
-			array('nombre_archivo', 'length', 'max'=>100),
+                        
+                        array('nombre_archivo', 'length', 'max'=>100),
 			array('ruta_archivo', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

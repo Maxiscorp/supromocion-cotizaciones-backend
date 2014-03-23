@@ -87,3 +87,45 @@ div .tabs_izquierda div.menu ul.listaopciones a{
 div .tabs_izquierda div.menu ul.listaopciones a img{
     vertical-align:middle;
 }
+
+.tablaform{
+    background-color: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    margin-bottom: 1em;
+    padding: 0;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.tablaagentesretencion{
+    background-color: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    margin-bottom: 1em;
+    margin: auto;
+    padding: 0;
+    width: 50%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.tablaagentesretencion tr td {
+    border-bottom: 1px solid #AAAAAA;
+    color: black;
+    /*padding: 0.1em 1em;*/
+    text-align: center;
+    vertical-align: middle;
+    background-color: #F7F2E0;
+}
+.coltitulos {
+    background-color: #FFCC99 !important;
+    border-left: 1px solid #AAAAAA;
+    border-right: 1px solid #AAAAAA;
+}
+
+.tablaform tr td {
+    border-bottom: 1px solid #AAAAAA;
+    color: black;
+    /*padding: 0.1em 1em;*/
+    text-align: left;
+    vertical-align: middle;
+    background-color: #F7F2E0;
+}

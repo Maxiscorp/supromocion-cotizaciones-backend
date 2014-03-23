@@ -118,7 +118,8 @@ return array(
     'params' => array(
         // this is used in contact page
         'adminEmail' => 'mtejada@sysnetic.com.ar',
-        'upload_path_base' =>  '/home/sysne621/public_html/archivos/supromocion/',
+       /* 'upload_path_base' =>  '/home/sysne621/public_html/archivos/supromocion/',*/
+        'upload_path_base' =>  '/git/archivos/supromocion/',
         'debugEmail' => 'mtejada@sysnetic.com.ar'
     ),
 );
