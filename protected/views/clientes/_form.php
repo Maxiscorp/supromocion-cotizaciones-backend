@@ -6,115 +6,165 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'clientes-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+    <?php
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'clientes-form',
+        'enableAjaxValidation' => false,
+        
+    'htmlOptions' => array('enctype' => 'multipart/form-data')
+    ));
+    ?>    
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+    <p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+    <?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'cuit'); ?>
-		<?php echo $form->textField($model,'cuit',array('size'=>11,'maxlength'=>11)); ?>
-		<?php echo $form->error($model,'cuit'); ?>
-	</div>
+    <table class="tablaform">
+        
+        <caption>Por favor ingrese los siguientes datos del cliente:</caption>
+        <tr>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'cuit'); ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'cuit', array('size' => 15, 'maxlength' => 11)); ?>
+                <?php echo $form->error($model, 'cuit'); ?>
+            </td>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'contacto'); ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'contacto', array('size' => 20, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'contacto'); ?>
+            </td>
+        </tr>
+        <tr>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'razon_social'); ?>
-		<?php echo $form->textField($model,'razon_social',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'razon_social'); ?>
-	</div>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'razon_social'); ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'razon_social', array('size' => 20, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'razon_social'); ?>
+            </td>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'nombre_comercial'); ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'nombre_comercial', array('size' => 20, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'nombre_comercial'); ?>
+            </td>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'nombre_comercial'); ?>
-		<?php echo $form->textField($model,'nombre_comercial',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'nombre_comercial'); ?>
-	</div>
+        </tr>
+        <tr>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'email'); ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'email', array('size' => 20, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'email'); ?>
+            </td>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'telefono'); ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'telefono', array('size' => 20, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'telefono'); ?>
+            </td>
+        </tr>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'contacto'); ?>
-		<?php echo $form->textField($model,'contacto',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'contacto'); ?>
-	</div>
+        <tr>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
+            <td class="coltitulos">
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'telefono'); ?>
-		<?php echo $form->textField($model,'telefono',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'telefono'); ?>
-	</div>
+                <?php echo $form->labelEx($model, 'idprovincia'); ?>
+            </td>
+            <td>
+                <?php
+                echo $form->dropDownList($model, 'idprovincia', CHtml::listData(Provincias::model()->findAll(
+                                        array(
+                                            'condition' => 'activo = true',
+                                            'order' => 'descripcion')), 'idprovincia', 'descripcion'), array('empty' => 'Seleccione'));
+                ?>
+                <?php echo $form->error($model, 'idprovincia'); ?>
+            </td>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'localidad'); ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'localidad', array('size' => 20, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'localidad'); ?>
+            </td>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'envia_mails_seguimiento'); ?>
-		<?php echo $form->textField($model,'envia_mails_seguimiento'); ?>
-		<?php echo $form->error($model,'envia_mails_seguimiento'); ?>
-	</div>
+        </tr>
+        <tr>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'localidad'); ?>
-		<?php echo $form->textField($model,'localidad',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'localidad'); ?>
-	</div>
+            <td class="coltitulos">
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'codigo_postal'); ?>
-		<?php echo $form->textField($model,'codigo_postal',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'codigo_postal'); ?>
-	</div>
+                <?php echo $form->labelEx($model, 'codigo_postal'); ?>
+            </td>
+            <td>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'idcondicion_iva'); ?>
-		<?php echo $form->textField($model,'idcondicion_iva',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'idcondicion_iva'); ?>
-	</div>
+                <?php echo $form->textField($model, 'codigo_postal', array('size' => 20, 'maxlength' => 20)); ?>
+                <?php echo $form->error($model, 'codigo_postal'); ?>
+            </td>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'idcondicion_iva'); ?>
+            </td>
+            <td>
+            <?php
+            echo $form->dropDownList($model, 'idcondicion_iva', CHtml::listData(CondicionesIva::model()->findAll(
+                                    array(
+                                        'condition' => 'activo = true',
+                                        'order' => 'descripcion')), 'idcondicion_iva', 'descripcion'), array('empty' => 'Seleccione'));
+            ?>
+            <?php echo $form->error($model, 'idcondicion_iva'); ?>
+            </td>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'idarchivo_logo'); ?>
-		<?php echo $form->textField($model,'idarchivo_logo'); ?>
-		<?php echo $form->error($model,'idarchivo_logo'); ?>
-	</div>
+        </tr>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'idprovincia'); ?>
-		<?php echo $form->textField($model,'idprovincia',array('size'=>11,'maxlength'=>11)); ?>
-		<?php echo $form->error($model,'idprovincia'); ?>
-	</div>
+        <tr>
+            <td class="coltitulos"><?php echo $form->labelEx($model, 'idarchivo_logo'); ?></td>
+            <td>
+                <?php echo $form->fileField($model, 'logo'); ?>
+                <div class="errores"><?php echo $form->error($model, 'logo'); ?></div>
+            </td>
+            <td class="coltitulos"><?php echo $form->labelEx($model, 'envia_mails_seguimiento'); ?></td>
+            <td>
+                <?php echo $form->checkBox($model, 'envia_mails_seguimiento'); ?>
+                <?php echo $form->error($model, 'envia_mails_seguimiento'); ?>
+            </td>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'fecha_alta'); ?>
-		<?php echo $form->textField($model,'fecha_alta'); ?>
-		<?php echo $form->error($model,'fecha_alta'); ?>
-	</div>
+        </tr>
+    </table>
+    <ul style="list-style-type:square; padding-left:1em">
+        <li>Solo se aceptan como respaldo archivos con las extensiones: gif, jpg, jpeg, png, pdf</li>
+        <li>El tamaño máximo permitido de un archivo es de 3 MB</li>
+    </ul>
+    <table class="tablaagentesretencion">
+        <caption>Seleccione los agentes de retencion correspondientes</caption>
+        <tr>
+            <td class="coltitulos"><?php echo $form->labelEx($modelAgenteIVA, 'idagente_retencion'); ?></td>
+            <td>
+                 <?php echo $form->checkBox($modelAgenteIVA, 'activo',array('name'=>'ClientesAgentesRetencionIVA[activo]')); ?></td>
+        </tr>
+        <tr>
+            <td class="coltitulos"><?php echo $form->labelEx($modelAgenteIIBB, 'idagente_retencion'); ?></td>
+            <td>
+                
+                <?php echo $form->checkBox($modelAgenteIIBB, 'activo',array('name'=>'ClientesAgentesRetencionIIBB[activo]')); ?></td>
+        </tr>
+        <tr>
+            <td class="coltitulos"><?php echo $form->labelEx($modelAgenteGanancias, 'idagente_retencion'); ?></td>
+            <td
+                
+                <?php echo $form->checkBox($modelAgenteGanancias, 'activo',array('name'=>'ClientesAgentesRetencionGanancias[activo]')); ?></td>
+        </tr>
+    </table>
+    <div class="row buttons">
+        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+    </div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'fecha_ultima_cotizacion_aprobada'); ?>
-		<?php echo $form->textField($model,'fecha_ultima_cotizacion_aprobada'); ?>
-		<?php echo $form->error($model,'fecha_ultima_cotizacion_aprobada'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'recontacar_cotizaciones'); ?>
-		<?php echo $form->textField($model,'recontacar_cotizaciones'); ?>
-		<?php echo $form->error($model,'recontacar_cotizaciones'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'activo'); ?>
-		<?php echo $form->textField($model,'activo'); ?>
-		<?php echo $form->error($model,'activo'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 
 </div><!-- form -->

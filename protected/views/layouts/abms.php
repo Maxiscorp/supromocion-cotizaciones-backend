@@ -4,10 +4,10 @@
         <div class="tabs_izquierda">
             <div class="menu">
                 <ul class="listaopciones">
-                    <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "Misdatos" ? "class=\"selected\"" : ""); ?>>
+                    <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "Clientes" ? "class=\"selected\"" : ""); ?>>
 
-                        <a href="<?php echo Yii::app()->createUrl('operadores/update') ?>">
-                            Mis datos
+                        <a href="<?php echo Yii::app()->createUrl('clientes/create') ?>">
+                            ABM Clientes
                         </a>
                     </li>
                     <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "Materiales" ? "class=\"selected\"" : ""); ?>>
