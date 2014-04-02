@@ -29,7 +29,7 @@ class MaterialesController extends Controller
 		return array(
 
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete'),
+				'actions'=>array('create','update','admin','delete','index'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -60,15 +60,16 @@ class MaterialesController extends Controller
 	public function actionCreate()
 	{
 		$model=new Materiales;
-
+                $model->unsetAttributes();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Materiales']))
 		{
 			$model->attributes=$_POST['Materiales'];
+                        $model->activo=1;
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->idmaterial));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
@@ -84,7 +85,7 @@ class MaterialesController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+                $model->scenario="update";
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -92,7 +93,7 @@ class MaterialesController extends Controller
 		{
 			$model->attributes=$_POST['Materiales'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->idmaterial));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(

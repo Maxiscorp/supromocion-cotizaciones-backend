@@ -30,11 +30,14 @@ $('.search-form form').submit(function(){
 
 
 
-
+<?php
+echo CHtml::link('Agregar material', $this->createAbsoluteUrl('materiales/create'));
+?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'materiales-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+        'template'=>'{items}{pager}',
 	'columns'=>array(
 		'idmaterial',
 		'nombre',

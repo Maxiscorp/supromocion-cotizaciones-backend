@@ -7,7 +7,8 @@ class ClientesController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/abms';
-
+    public $paginaactual="Clientes";
+    
     /**
      * @return array action filters
      */
@@ -118,7 +119,7 @@ class ClientesController extends Controller {
                     }
                 }
 
-                $this->redirect(array('view', 'id' => $model->idcliente));
+                $this->redirect(array('admin'));
             }
         }
 

@@ -10,10 +10,13 @@ $this->breadcrumbs=array(
 
 <h1>Clientes</h1>
 
-
+<?php
+echo CHtml::link('Agregar cliente', $this->createAbsoluteUrl('clientes/create'));
+?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'clientes-grid',
 	'dataProvider'=>$model->search(),
+        'template'=>'{items}{pager}',
 	'filter'=>$model,
 	'columns'=>array(
 		'idcliente',
