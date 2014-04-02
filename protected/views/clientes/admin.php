@@ -7,7 +7,6 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-<?php
 echo CHtml::link('Agregar cliente', $this->createAbsoluteUrl('clientes/create'));
 ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
