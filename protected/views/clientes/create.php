@@ -14,7 +14,6 @@ $this->menu=array(
 ?>
 
 <h1>Create Clientes</h1>
-
 <?php echo $this->renderPartial('_form', array('model'=>$model,'modelArchivo'=>$modelArchivo,
             'modelAgenteGanancias' => $modelAgenteGanancias,
             'modelAgenteIIBB' => $modelAgenteIIBB,

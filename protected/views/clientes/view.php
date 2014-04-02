@@ -1,7 +1,6 @@
 <?php
 /* @var $this ClientesController */
 /* @var $model Clientes */
-
 $this->breadcrumbs = array(
     'Clientes' => array('index'),
     $model->idcliente,

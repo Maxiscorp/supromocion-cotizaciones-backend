@@ -1,5 +1,4 @@
 <?php
-
 class ClientesController extends Controller {
 
     /**
@@ -243,5 +242,4 @@ class ClientesController extends Controller {
             Yii::app()->end();
         }
     }
-
 }
