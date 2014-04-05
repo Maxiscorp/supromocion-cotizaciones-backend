@@ -1,13 +1,14 @@
 <?php
 
-class ImpresionesTiposController extends Controller
+class ProductosTiposMaterialesController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/abms';
-        public $paginaactual="ImpresionesTipos";
+	public $paginaactual='ProductosTipos';
+
 	/**
 	 * @return array action filters
 	 */
@@ -27,9 +28,14 @@ class ImpresionesTiposController extends Controller
 	public function accessRules()
 	{
 		return array(
+
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin'),
+				'actions'=>array('create','update','admin','delete'),
 				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -54,17 +60,16 @@ class ImpresionesTiposController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new ImpresionesTipos;
-                $model->unsetAttributes();
+		$model=new ProductosTiposMateriales;
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ImpresionesTipos']))
+		if(isset($_POST['ProductosTiposMateriales']))
 		{
-			$model->attributes=$_POST['ImpresionesTipos'];
-                        $model->activo=1;
+			$model->attributes=$_POST['ProductosTiposMateriales'];
 			if($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('admin','id'=>$model->idproducto_tipo));
 		}
 
 		$this->render('create',array(
@@ -84,11 +89,11 @@ class ImpresionesTiposController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ImpresionesTipos']))
+		if(isset($_POST['ProductosTiposMateriales']))
 		{
-			$model->attributes=$_POST['ImpresionesTipos'];
+			$model->attributes=$_POST['ProductosTiposMateriales'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->idimpresion_tipo));
+				$this->redirect(array('view','id'=>$model->idproducto_tipo_material));
 		}
 
 		$this->render('update',array(
@@ -103,7 +108,9 @@ class ImpresionesTiposController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model=$this->loadModel($id);
+                $model->activo=0;
+                $model->save();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -115,7 +122,7 @@ class ImpresionesTiposController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('ImpresionesTipos');
+		$dataProvider=new CActiveDataProvider('ProductosTiposMateriales');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -124,15 +131,18 @@ class ImpresionesTiposController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($id)
 	{
-		$model=new ImpresionesTipos('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ImpresionesTipos']))
-			$model->attributes=$_GET['ImpresionesTipos'];
-
+                
+		$model=new ProductosTiposMateriales('search');
+                $model->unsetAttributes();
+                $model->idproducto_tipo=$id;
+                $model->activo=1;
+                if(isset($_GET['ProductosTiposMateriales']))
+			$model->attributes=$_GET['ProductosTiposMateriales'];
+  
 		$this->render('admin',array(
-			'model'=>$model,
+                        'model'=>$model,
 		));
 	}
 
@@ -140,12 +150,12 @@ class ImpresionesTiposController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return ImpresionesTipos the loaded model
+	 * @return ProductosTiposMateriales the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=ImpresionesTipos::model()->findByPk($id);
+		$model=ProductosTiposMateriales::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -153,11 +163,11 @@ class ImpresionesTiposController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param ImpresionesTipos $model the model to be validated
+	 * @param ProductosTiposMateriales $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='impresiones-tipos-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='productos-tipos-materiales-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -10,6 +10,18 @@
                             ABM Clientes
                         </a>
                     </li>
+                    <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "ProductosTipos" ? "class=\"selected\"" : ""); ?>>
+
+                        <a href="<?php echo Yii::app()->createUrl('productosTipos/admin') ?>">
+                            ABM Categorias de productos
+                        </a>
+                    </li>
+                    <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "ImpresionesTipos" ? "class=\"selected\"" : ""); ?>>
+
+                        <a href="<?php echo Yii::app()->createUrl('impresionestipos/admin') ?>">
+                            ABM Tipos de Impresion
+                        </a>
+                    </li>
                     <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "Materiales" ? "class=\"selected\"" : ""); ?>>
                         <a href="<?php echo Yii::app()->createUrl('materiales/admin') ?>">
                             ABM Materiales
