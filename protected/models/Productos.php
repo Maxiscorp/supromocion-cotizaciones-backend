@@ -73,10 +73,10 @@ class Productos extends CActiveRecord
 	{
 		return array(
 			'idproducto' => 'Idproducto',
-			'idproducto_tipo' => 'Idproducto Tipo',
-			'idmoneda' => 'Idmoneda',
-			'codigo_producto_interno' => 'Codigo Producto Interno',
-			'codigo_producto_proveedor' => 'Codigo Producto Proveedor',
+			'idproducto_tipo' => 'Tipo de producto',
+			'idmoneda' => 'Moneda',
+			'codigo_producto_interno' => 'Codigo interno del producto',
+			'codigo_producto_proveedor' => 'Codigo proveedor del producto',
 			'fecha_alta' => 'Fecha Alta',
 			'activo' => 'Activo',
 		);

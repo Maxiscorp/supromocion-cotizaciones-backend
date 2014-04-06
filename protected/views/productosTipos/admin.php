@@ -25,9 +25,9 @@ $this->menu=array(
                 (
                 
                 'abm_material' => array(
-                    'label' => 'Agregar materiales al producto',
+                    'label' => 'Agregar posibles materiales al tipo de producto',
                     'imageUrl' => $this->createUrl('../../images/silk/pencil.png'),
-                    'url' => $this->createUrl('../../images/silk/pencil.png'),
+                    'url' => 'Yii::app()->createUrl("productostiposmateriales/admin", array("id"=>$data->idproducto_tipo))',
                 ),
             )
         ),

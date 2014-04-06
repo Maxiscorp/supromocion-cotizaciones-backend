@@ -58,7 +58,7 @@ class ImpresionesTipos extends CActiveRecord
 	{
 		return array(
 			'idimpresion_tipo' => 'Idimpresion Tipo',
-			'descripcion' => 'Descripcion',
+			'descripcion' => 'Tipo de impresion',
 			'activo' => 'Activo',
 		);
 	}

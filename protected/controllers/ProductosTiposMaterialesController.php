@@ -138,9 +138,15 @@ class ProductosTiposMaterialesController extends Controller
                 $model->unsetAttributes();
                 $model->idproducto_tipo=$id;
                 $model->activo=1;
-                if(isset($_GET['ProductosTiposMateriales']))
-			$model->attributes=$_GET['ProductosTiposMateriales'];
-  
+		if(isset($_POST['ProductosTiposMateriales']))
+		{
+                        $modeltosave=new ProductosTiposMateriales;
+			$modeltosave->attributes=$_POST['ProductosTiposMateriales'];
+                        $modeltosave->idproducto_tipo=$id;
+                        $modeltosave->activo=true;
+			if($modeltosave->save())
+				Yii::app()->user->setFlash('success', "El material ".$modeltosave->idmaterial0->descripcion." se ha agregado con éxito!");
+		}
 		$this->render('admin',array(
                         'model'=>$model,
 		));
