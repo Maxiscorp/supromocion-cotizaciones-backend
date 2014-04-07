@@ -13,7 +13,7 @@
                     <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "Productos" ? "class=\"selected\"" : ""); ?>>
 
                         <a href="<?php echo Yii::app()->createUrl('productos/admin') ?>">
-                            Categorias de productos
+                            Productos
                         </a>
                     </li>
                     <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "ProductosTipos" ? "class=\"selected\"" : ""); ?>>

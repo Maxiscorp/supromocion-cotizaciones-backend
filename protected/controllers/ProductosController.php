@@ -27,7 +27,7 @@ class ProductosController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'admin', 'paso2', 'delete'),
+                'actions' => array('create', 'update', 'admin', 'paso2', 'paso3', 'delete'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -56,16 +56,18 @@ class ProductosController extends Controller {
      */
     public function actionCreate() {
         $model = new Productos;
-        $model->unsetAttributes();
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
-
         if (isset($_POST['Productos'])) {
+
             $model->attributes = $_POST['Productos'];
             $model->activo = 1;
             if ($model->save())
                 $this->redirect(array('paso2', 'id' => $model->idproducto));
         }
+        $model->unsetAttributes();
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
+
+
 
         $this->render('create', array(
             'model' => $model,
@@ -102,7 +104,6 @@ class ProductosController extends Controller {
                 $modelProductosImagenessave->activo = 1;
                 $modelProductosImagenessave->save();
                 Yii::app()->user->setFlash('success', "la imagen se ha subido con éxito! ");
-		
             }
         }
         $modelProductosImagenes = new ProductosImagenes('search');
@@ -115,6 +116,27 @@ class ProductosController extends Controller {
             'model' => $model,
             'modelArchivo' => $modelArchivo,
             'modelProductosImagenes' => $modelProductosImagenes,
+        ));
+    }
+
+    public function actionPaso3($id) {
+        $model = $this->loadModel($id);
+        $modelPreciosUnitarios = new ProductosPreciosUnitarios('search');
+        $modelPreciosUnitarios->unsetAttributes();
+        $modelPreciosUnitarios->idproducto = $id;
+        $modelPreciosUnitarios->activo = 1;
+        $modelPrecioUnitario = new ProductosPreciosUnitarios;
+        if (isset($_POST['ProductosPreciosUnitarios'])) {
+            $modelPrecioUnitario->attributes = $_POST['ProductosPreciosUnitarios'];
+            $modelPrecioUnitario->activo=1;
+            $modelPrecioUnitario->idproducto = $id;
+            $modelPrecioUnitario->save();
+        }
+
+        $modelPrecioUnitario->unsetAttributes();
+        $this->render('paso3', array(
+            'model' => $model,
+            'modelPreciosUnitarios' => $modelPreciosUnitarios,
         ));
     }
 

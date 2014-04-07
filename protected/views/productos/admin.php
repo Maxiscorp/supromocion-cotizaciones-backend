@@ -3,33 +3,17 @@
 /* @var $model Productos */
 
 $this->breadcrumbs=array(
-	'Productoses'=>array('index'),
+	'Productos'=>array('admin'),
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Productos', 'url'=>array('index')),
-	array('label'=>'Create Productos', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#productos-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1>ABM Productos</h1>
+<?php 
 
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+echo CHtml::link('Nuevo producto', $this->createAbsoluteUrl('productos/create'));
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'productos-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -37,7 +21,7 @@ $('.search-form form').submit(function(){
 		'codigo_producto_interno',
 		'codigo_producto_proveedor',
 		'nombre',
-		'idproducto_tipo0.descripcion',
+		'idproductoTipo.descripcion',
 		'idmoneda0.descripcion',
 		array(
 			'class'=>'CButtonColumn',

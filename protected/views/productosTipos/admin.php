@@ -3,14 +3,10 @@
 /* @var $model ProductosTipos */
 
 $this->breadcrumbs=array(
-	'Productos Tiposes'=>array('index'),
+	'Tipo de producto'=>array('admin'),
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List ProductosTipos', 'url'=>array('index')),
-	array('label'=>'Create ProductosTipos', 'url'=>array('create')),
-);
 
      $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'productos-tipos-grid',

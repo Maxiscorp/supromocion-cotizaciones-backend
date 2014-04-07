@@ -3,13 +3,8 @@
 /* @var $model Materiales */
 
 $this->breadcrumbs = array(
-    'Materiales' => array('index'),
+    'Materiales' => array('admin'),
     'Manage',
-);
-
-$this->menu = array(
-    array('label' => 'List Materiales', 'url' => array('index')),
-    array('label' => 'Create Materiales', 'url' => array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

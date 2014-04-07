@@ -4,7 +4,7 @@
 /* @var $model Clientes */
 
 $this->breadcrumbs = array(
-    'Clientes' => array('index'),
+    'Clientes' => array('admin'),
     'Manage',
 );
 

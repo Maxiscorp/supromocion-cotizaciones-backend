@@ -4,13 +4,8 @@
 /* @var $model ImpresionesTipos */
 
 $this->breadcrumbs = array(
-    'Impresiones Tipos' => array('admin'),
+    'Tipos de impresion' => array('admin'),
     'Manage',
-);
-
-$this->menu = array(
-    array('label' => 'List ImpresionesTipos', 'url' => array('index')),
-    array('label' => 'Create ImpresionesTipos', 'url' => array('create')),
 );
 
 echo CHtml::link('Agregar Tipo de Impresion', $this->createAbsoluteUrl('impresionestipos/create'));

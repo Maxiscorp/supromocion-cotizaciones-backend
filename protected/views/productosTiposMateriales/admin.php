@@ -3,14 +3,10 @@
 /* @var $model ProductosTiposMateriales */
 
 $this->breadcrumbs = array(
-    'Productos Tipos Materiales' => array('index'),
+    'Materiales de tipo de producto' => array('admin'),
     'Manage',
 );
 
-$this->menu = array(
-    array('label' => 'List ProductosTiposMateriales', 'url' => array('index')),
-    array('label' => 'Create ProductosTiposMateriales', 'url' => array('create')),
-);
 echo CHtml::link('Volver', $this->createAbsoluteUrl('productostipos/admin'));
 ?><h2>Agregar materiales al tipo de producto "<?php echo $model->idproductoTipo->descripcion; ?>"</h2>
 <?php

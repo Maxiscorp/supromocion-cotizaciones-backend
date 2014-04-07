@@ -8,6 +8,7 @@
  * @property integer $idproducto_tipo
  * @property integer $idmoneda
  * @property string $codigo_producto_interno
+ * @property string $nombre
  * @property string $codigo_producto_proveedor
  * @property string $fecha_alta
  * @property integer $activo
@@ -41,7 +42,7 @@ class Productos extends CActiveRecord
 		return array(
 			array('idproducto_tipo, idmoneda, activo', 'numerical', 'integerOnly'=>true),
 			array('codigo_producto_interno, codigo_producto_proveedor', 'length', 'max'=>50),
-			array('fecha_alta', 'safe'),
+			array('fecha_alta,nombre', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('idproducto, idproducto_tipo, idmoneda, codigo_producto_interno, codigo_producto_proveedor, fecha_alta, activo', 'safe', 'on'=>'search'),
