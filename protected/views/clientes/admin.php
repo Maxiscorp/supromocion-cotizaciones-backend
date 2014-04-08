@@ -6,9 +6,7 @@ $this->breadcrumbs=array(
 	'Clientes'=>array('index'),
 	'Manage',
 );
-
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'clientes-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
