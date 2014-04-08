@@ -6,8 +6,8 @@ class ImpresionesTiposController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
-
+	public $layout='//layouts/abms';
+        public $paginaactual="ImpresionesTipos";
 	/**
 	 * @return array action filters
 	 */
@@ -27,17 +27,9 @@ class ImpresionesTiposController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','admin'),
 				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -63,15 +55,16 @@ class ImpresionesTiposController extends Controller
 	public function actionCreate()
 	{
 		$model=new ImpresionesTipos;
-
+                $model->unsetAttributes();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['ImpresionesTipos']))
 		{
 			$model->attributes=$_POST['ImpresionesTipos'];
+                        $model->activo=1;
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->idimpresion_tipo));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(

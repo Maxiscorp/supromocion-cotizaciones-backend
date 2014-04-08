@@ -57,7 +57,7 @@ class ProductosTipos extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'idproducto_tipo' => 'Idproducto Tipo',
+			'idproducto_tipo' => 'Tipo de producto',
 			'descripcion' => 'Descripcion',
 			'activo' => 'Activo',
 		);

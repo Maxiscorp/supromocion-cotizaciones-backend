@@ -49,8 +49,9 @@ class Clientes extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('logo', 'file', 'types' => 'jpg, gif, png,pdf,tiff,jpeg,bmp', 'allowEmpty' => true, 'maxSize' => 2048000, 'on' => 'logo'),
-            array('envia_mails_seguimiento, activo', 'numerical', 'integerOnly' => true),
+            array('envia_mails_seguimiento, activo,idcondicion_iva', 'numerical', 'integerOnly' => true),
             array('cuit, idprovincia', 'length', 'max' => 11),
+            array('idcondicion_iva', 'required','on'=>'logo'),
             array('razon_social, nombre_comercial, contacto, email, telefono, localidad', 'length', 'max' => 100),
             array('codigo_postal', 'length', 'max' => 20),
             array('idcondicion_iva,idarchivo_logo', 'length', 'max' => 10),

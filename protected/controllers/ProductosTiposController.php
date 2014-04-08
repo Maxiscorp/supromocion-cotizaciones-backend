@@ -1,13 +1,13 @@
 <?php
 
-class MaterialesController extends Controller
+class ProductosTiposController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/abms';
-	public $paginaactual="Materiales";
+        public $paginaactual='ProductosTipos';
 	/**
 	 * @return array action filters
 	 */
@@ -27,9 +27,8 @@ class MaterialesController extends Controller
 	public function accessRules()
 	{
 		return array(
-
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','index'),
+				'actions'=>array('create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -59,17 +58,16 @@ class MaterialesController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Materiales;
-                $model->unsetAttributes();
+		$model=new ProductosTipos;
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Materiales']))
+		if(isset($_POST['ProductosTipos']))
 		{
-			$model->attributes=$_POST['Materiales'];
-                        $model->activo=1;
+			$model->attributes=$_POST['ProductosTipos'];
 			if($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('view','id'=>$model->idproducto_tipo));
 		}
 
 		$this->render('create',array(
@@ -85,15 +83,15 @@ class MaterialesController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-                $model->scenario="update";
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Materiales']))
+		if(isset($_POST['ProductosTipos']))
 		{
-			$model->attributes=$_POST['Materiales'];
+			$model->attributes=$_POST['ProductosTipos'];
 			if($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('view','id'=>$model->idproducto_tipo));
 		}
 
 		$this->render('update',array(
@@ -108,9 +106,8 @@ class MaterialesController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$model=$this->loadModel($id);
-		$model->activo=0;
-		$model->save();
+		$this->loadModel($id)->delete();
+
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
@@ -121,7 +118,7 @@ class MaterialesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Materiales');
+		$dataProvider=new CActiveDataProvider('ProductosTipos');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -132,10 +129,10 @@ class MaterialesController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Materiales('search');
+		$model=new ProductosTipos('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Materiales']))
-			$model->attributes=$_GET['Materiales'];
+		if(isset($_GET['ProductosTipos']))
+			$model->attributes=$_GET['ProductosTipos'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -146,12 +143,12 @@ class MaterialesController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Materiales the loaded model
+	 * @return ProductosTipos the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Materiales::model()->findByPk($id);
+		$model=ProductosTipos::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -159,11 +156,11 @@ class MaterialesController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Materiales $model the model to be validated
+	 * @param ProductosTipos $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='materiales-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='productos-tipos-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

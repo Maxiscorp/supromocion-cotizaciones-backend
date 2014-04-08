@@ -22,6 +22,7 @@ class Archivos extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+         public $archivo;
 	public function tableName()
 	{
 		return 'archivos';
@@ -36,7 +37,7 @@ class Archivos extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('activo', 'numerical', 'integerOnly'=>true),
-                        
+                        array('archivo', 'file', 'types' => 'jpg, gif, png,pdf,tiff,jpeg,bmp', 'allowEmpty' => true, 'maxSize' => 2048000, 'on' => 'producto_imagenes_upload'),
                         array('nombre_archivo', 'length', 'max'=>100),
 			array('ruta_archivo', 'length', 'max'=>200),
 			// The following rule is used by search().

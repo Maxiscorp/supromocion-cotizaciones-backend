@@ -1,13 +1,13 @@
 <?php
-/* @var $this ImpresionesTiposController */
-/* @var $model ImpresionesTipos */
+/* @var $this ProductosTiposController */
+/* @var $model ProductosTipos */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'impresiones-tipos-form',
+	'id'=>'productos-tipos-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -21,9 +21,14 @@
 		<?php echo $form->error($model,'descripcion'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'activo'); ?>
+		<?php echo $form->textField($model,'activo'); ?>
+		<?php echo $form->error($model,'activo'); ?>
+	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -6,7 +6,8 @@ class ClientesController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/abms';
-
+    public $paginaactual="Clientes";
+    
     /**
      * @return array action filters
      */
@@ -25,7 +26,7 @@ class ClientesController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'index', 'view', 'admin'),
+                'actions' => array('create', 'update', 'index', 'view', 'admin','delete'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -117,7 +118,7 @@ class ClientesController extends Controller {
                     }
                 }
 
-                $this->redirect(array('view', 'id' => $model->idcliente));
+                $this->redirect(array('admin'));
             }
         }
 
@@ -186,7 +187,9 @@ class ClientesController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        $this->loadModel($id)->delete();
+        $model=$this->loadModel($id);
+        $model->activo=0;
+        $model->save();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
