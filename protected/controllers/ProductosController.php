@@ -27,7 +27,7 @@ class ProductosController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'admin', 'paso2', 'paso3', 'delete'),
+                'actions' => array('create', 'update', 'admin', 'paso2', 'paso3', 'agregarimagenes', 'agregarmateriales', 'agregarprecios', 'delete', 'pasofinal', 'deleteprecio', 'deletematerial'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -71,6 +71,51 @@ class ProductosController extends Controller {
 
         $this->render('create', array(
             'model' => $model,
+        ));
+    }
+
+    public function actionAgregarimagenes($id) {
+        $model = $this->loadModel($id);
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
+
+
+        $archivos = CUploadedFile::getInstancesByName('Archivos[archivo]');
+        if (isset($archivos) && count($archivos) > 0) {
+            foreach ($archivos as $image => $pic) {
+
+// add it to the main model now
+                $ruta = Yii::app()->params['upload_path_base'] . "productos" . date('/Y/m/d/');
+                if (!file_exists($ruta)) {
+                    mkdir($ruta, 0755, true);
+                }
+                $archivo_guardar = $ruta . $pic;
+                $ruta_archivo = "/productos" . date('/Y/m/d/') . $pic;
+                $modelArchivosave = new Archivos;
+                $modelArchivosave->ruta_archivo = $ruta_archivo;
+                $modelArchivosave->nombre_archivo = $pic;
+                $modelArchivosave->activo = 1;
+
+                $pic->saveAs($archivo_guardar);
+                $modelArchivosave->save();
+                $modelProductosImagenessave = new ProductosImagenes;
+                $modelProductosImagenessave->idarchivo = $modelArchivosave->idarchivo;
+                $modelProductosImagenessave->idproducto = $id;
+                $modelProductosImagenessave->activo = 1;
+                $modelProductosImagenessave->save();
+                Yii::app()->user->setFlash('success', "la imagen se ha subido con éxito! ");
+            }
+        }
+        $modelProductosImagenes = new ProductosImagenes('search');
+        $modelProductosImagenes->unsetAttributes();
+        $modelProductosImagenes->idproducto = $id;
+        $modelProductosImagenes->activo = 1;
+        $modelArchivo = new Archivos('producto_imagenes_upload');
+
+        $this->render('agregar_imagenes', array(
+            'model' => $model,
+            'modelArchivo' => $modelArchivo,
+            'modelProductosImagenes' => $modelProductosImagenes,
         ));
     }
 
@@ -119,6 +164,52 @@ class ProductosController extends Controller {
         ));
     }
 
+    public function actionAgregarPrecios($id) {
+        $model = $this->loadModel($id);
+        $modelPreciosUnitarios = new ProductosPreciosUnitarios('search');
+        $modelPreciosUnitarios->unsetAttributes();
+        $modelPreciosUnitarios->idproducto = $id;
+        $modelPreciosUnitarios->activo = 1;
+        $modelPrecioUnitario = new ProductosPreciosUnitarios;
+
+        $modelPrecioUnitario->unsetAttributes();
+        $modelPrecioUnitario->scenario = "insert";
+
+        if (isset($_POST['ProductosPreciosUnitarios'])) {
+            $modelPrecioUnitario->attributes = $_POST['ProductosPreciosUnitarios'];
+            $existe = ProductosPreciosUnitarios::model()->findAllByAttributes(
+                    array('activo' => 1, 'idproducto' => $id), array('condition' => ':desde between cantidad_desde and cantidad_hasta and :hasta between cantidad_desde and cantidad_hasta',
+                'params' =>
+                array(':desde' => $modelPrecioUnitario->cantidad_desde, ':hasta' => $modelPrecioUnitario->cantidad_hasta)));
+
+
+            if (sizeof($existe) == 0) {
+
+
+
+                $modelPrecioUnitario->activo = 1;
+                $modelPrecioUnitario->idproducto = $id;
+                if ($modelPrecioUnitario->validate()) {
+                    $modelPrecioUnitario->save();
+
+                    Yii::app()->user->setFlash('success', "el rango fue registrado con éxito! ");
+                    $modelPrecioUnitario->unsetAttributes();
+                    $modelPrecioUnitario->scenario = "insert";
+                }
+            } else {
+                $modelPrecioUnitario->validate();
+                $modelPrecioUnitario->addError("cantidad_desde", "El rango o parte del rango elegido ya esta asociado a un precio, por favor verificar.");
+                $modelPrecioUnitario->addError("cantidad_hasta", "El rango o parte del rango elegido ya esta asociado a un precio, por favor verificar.");
+            }
+        }
+
+        $this->render('agregar_precios', array(
+            'model' => $model,
+            'modelPreciosUnitarios' => $modelPreciosUnitarios,
+            'modelPrecioUnitario' => $modelPrecioUnitario,
+        ));
+    }
+
     public function actionPaso3($id) {
         $model = $this->loadModel($id);
         $modelPreciosUnitarios = new ProductosPreciosUnitarios('search');
@@ -126,17 +217,96 @@ class ProductosController extends Controller {
         $modelPreciosUnitarios->idproducto = $id;
         $modelPreciosUnitarios->activo = 1;
         $modelPrecioUnitario = new ProductosPreciosUnitarios;
-        if (isset($_POST['ProductosPreciosUnitarios'])) {
-            $modelPrecioUnitario->attributes = $_POST['ProductosPreciosUnitarios'];
-            $modelPrecioUnitario->activo=1;
-            $modelPrecioUnitario->idproducto = $id;
-            $modelPrecioUnitario->save();
-        }
 
         $modelPrecioUnitario->unsetAttributes();
+        $modelPrecioUnitario->scenario = "insert";
+
+        if (isset($_POST['ProductosPreciosUnitarios'])) {
+            $modelPrecioUnitario->attributes = $_POST['ProductosPreciosUnitarios'];
+            $existe = ProductosPreciosUnitarios::model()->findAllByAttributes(
+                    array('activo' => 1, 'idproducto' => $id), array('condition' => ':desde between cantidad_desde and cantidad_hasta and :hasta between cantidad_desde and cantidad_hasta',
+                'params' =>
+                array(':desde' => $modelPrecioUnitario->cantidad_desde, ':hasta' => $modelPrecioUnitario->cantidad_hasta)));
+
+
+            if (sizeof($existe) == 0) {
+
+
+
+                $modelPrecioUnitario->activo = 1;
+                $modelPrecioUnitario->idproducto = $id;
+                if ($modelPrecioUnitario->validate()) {
+                    $modelPrecioUnitario->save();
+
+                    Yii::app()->user->setFlash('success', "el rango fue registrado con éxito! ");
+                    $modelPrecioUnitario->unsetAttributes();
+                    $modelPrecioUnitario->scenario = "insert";
+                }
+            } else {
+                $modelPrecioUnitario->validate();
+                $modelPrecioUnitario->addError("cantidad_desde", "El rango o parte del rango elegido ya esta asociado a un precio, por favor verificar.");
+                $modelPrecioUnitario->addError("cantidad_hasta", "El rango o parte del rango elegido ya esta asociado a un precio, por favor verificar.");
+            }
+        }
+
         $this->render('paso3', array(
             'model' => $model,
             'modelPreciosUnitarios' => $modelPreciosUnitarios,
+            'modelPrecioUnitario' => $modelPrecioUnitario,
+        ));
+    }
+
+    public function actionPasoFinal($id) {
+        $model = $this->loadModel($id);
+
+        $modelProductoMaterial = new ProductosMateriales('insert');
+        if (isset($_POST['ProductosMateriales'])) {
+            $modelProductoMaterial->attributes = $_POST['ProductosMateriales'];
+            $modelProductoMaterial->idproducto = $id;
+            $modelProductoMaterial->activo = 1;
+            if ($modelProductoMaterial->validate()) {
+                $modelProductoMaterial->save();
+
+                Yii::app()->user->setFlash('success', "el material fue agregado con éxito! ");
+                $modelProductoMaterial->unsetAttributes();
+            }
+        }
+        $modelProductosTiposMateriales = ProductosTiposMateriales::model()->findAllByAttributes(array('activo' => 1, 'idproducto_tipo' => $model->idproducto_tipo), array('condition' => 'idmaterial not in(select idmaterial from productos_materiales where activo=1 and idproducto=:idproducto)', 'params' => array(':idproducto' => $id)));
+        $modelProductosMateriales = new ProductosMateriales('search');
+        $modelProductosMateriales->idproducto = $id;
+        $modelProductosMateriales->activo = 1;
+        $this->render('paso_final', array(
+            'model' => $model,
+            'modelProductosTiposMateriales' => $modelProductosTiposMateriales,
+            'modelProductosMateriales' => $modelProductosMateriales,
+            'modelProductoMaterial' => $modelProductoMaterial,
+        ));
+    }
+
+    public function actionAgregarmateriales($id) {
+        $model = $this->loadModel($id);
+
+        $modelProductoMaterial = new ProductosMateriales('insert');
+        if (isset($_POST['ProductosMateriales'])) {
+            $modelProductoMaterial->attributes = $_POST['ProductosMateriales'];
+            $modelProductoMaterial->idproducto = $id;
+            $modelProductoMaterial->activo = 1;
+            if ($modelProductoMaterial->validate()) {
+                $modelProductoMaterial->save();
+
+                Yii::app()->user->setFlash('success', "el material fue agregado con éxito! ");
+                $modelProductoMaterial->unsetAttributes();
+            }
+        }
+        $modelProductosTiposMateriales = ProductosTiposMateriales::model()->findAllByAttributes(array('activo' => 1, 'idproducto_tipo' => $model->idproducto_tipo), array('condition' => 'idmaterial not in(select idmaterial from productos_materiales where activo=1 and idproducto=:idproducto)', 'params' => array(':idproducto' => $id)));
+        $modelProductosMateriales = new ProductosMateriales('search');
+        $modelProductosMateriales->idproducto = $id;
+        $modelProductosMateriales->activo = 1;
+        $this->render('agregar_materiales', array(
+            'model' => $model,
+            'modelProductosTiposMateriales' => $modelProductosTiposMateriales,
+            'modelProductosMateriales' => $modelProductosMateriales,
+            'modelProductoMaterial' => $modelProductoMaterial,
         ));
     }
 
@@ -154,7 +324,7 @@ class ProductosController extends Controller {
         if (isset($_POST['Productos'])) {
             $model->attributes = $_POST['Productos'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idproducto));
+                $this->redirect(array('admin'));
         }
 
         $this->render('update', array(
@@ -168,7 +338,29 @@ class ProductosController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        $this->loadModel($id)->delete();
+        $model = $this->loadModel($id);
+        $model->activo = 0;
+        $model->save();
+
+// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+    }
+
+    public function actionDeleteprecio($id) {
+        $model = ProductosPreciosUnitarios::model()->findByPk($id);
+        $model->activo = 0;
+        $model->save();
+
+// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+    }
+
+    public function actionDeletematerial($id) {
+        $model = ProductosMateriales::model()->findByPk($id);
+        $model->activo = 0;
+        $model->save();
 
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -191,6 +383,7 @@ class ProductosController extends Controller {
     public function actionAdmin() {
         $model = new Productos('search');
         $model->unsetAttributes();  // clear any default values
+        $model->activo = 1;
         if (isset($_GET['Productos']))
             $model->attributes = $_GET['Productos'];
 

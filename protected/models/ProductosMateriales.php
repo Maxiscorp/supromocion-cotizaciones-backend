@@ -34,6 +34,7 @@ class ProductosMateriales extends CActiveRecord
 		return array(
 			array('idproducto, idmaterial, activo', 'numerical', 'integerOnly'=>true),
 			array('fecha_alta', 'safe'),
+                        array('idmaterial','required','on'=>'insert'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('idproducto_material, idproducto, idmaterial, fecha_alta, activo', 'safe', 'on'=>'search'),
@@ -61,7 +62,7 @@ class ProductosMateriales extends CActiveRecord
 		return array(
 			'idproducto_material' => 'Idproducto Material',
 			'idproducto' => 'Idproducto',
-			'idmaterial' => 'Idmaterial',
+			'idmaterial' => 'Material',
 			'fecha_alta' => 'Fecha Alta',
 			'activo' => 'Activo',
 		);

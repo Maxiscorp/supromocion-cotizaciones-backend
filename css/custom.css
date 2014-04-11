@@ -1,28 +1,31 @@
 .grid-view
 {
-	padding: 15px 0;
+    padding: 15px 0;
 }
 
 .grid-view table.items
 {
-	background: white;
-	border-collapse: collapse;
-	width: 100%;
-	border: 1px #D0E3EF solid;
+    background: white;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px #D0E3EF solid;
 }
 
 .grid-view table.items th, .grid-view table.items td
 {
-	font-size: 0.9em;
-	border: 1px white solid;
-	padding: 0.3em;
+    font-size: 0.9em;
+    border: 1px white solid;
+    padding: 0.3em;
 }
 
 .grid-view table.items th
 {
-	color: white;
-	background-color: #FF6600;
-	text-align: center;
+    color: white;
+    background-color: #FF6600;
+    text-align: center;
+}
+.grid-view table.button-column td a {
+    margin-left: 0.6em;
 }
 div .tabs_izquierda{
     width:100%;
@@ -61,7 +64,7 @@ div .tabs_izquierda div.menu ul.listaopciones li{
     border-left:1px solid grey;
     border-right:1px solid grey;
     margin-bottom:0;
-	font-weight:bold;
+    font-weight:bold;
     position:relative;
     left:1px;
 }
@@ -129,3 +132,4 @@ div .tabs_izquierda div.menu ul.listaopciones a img{
     vertical-align: middle;
     background-color: #F7F2E0;
 }
+

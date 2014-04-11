@@ -8,10 +8,10 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'productos-precios-unitarios-form',
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
 )); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+    
+	<p class="note">Fields  with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 

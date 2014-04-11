@@ -9,20 +9,21 @@ $this->breadcrumbs = array(
     'Create',
 );
 ?>
-<h1>
-    Paso 2 de alta de producto
-</h1>
 
+<h2>
+<?php
+echo CHtml::link('Volver ', $this->createAbsoluteUrl('productos/admin'));
+?>
+</h2>
 <h2>Detalles del producto</h2>
 
-    <table class="tablaform">
-<?php
-echo $this->renderPartial('_datos_basicos_producto', array('model' => $model,
-));
-?>
+<table class="tablaform">
+    <?php
+    echo $this->renderPartial('_datos_basicos_producto', array('model' => $model,
+    ));
+    ?>
 
-    </table>
-
+</table>
 <h2>Agregar imagenes al producto</h2>
 <?php
 echo $this->renderPartial('_formimagenes', array('model' => $model,
@@ -43,10 +44,3 @@ echo $this->renderPartial('_productosslide', array(
     'model' => $modelProductosImagenes,
 ));
 ?>
-<div style="text-align:right;">
-    <h3>
-<?php
-echo CHtml::link('Continuar al alta de precios unitarios ', $this->createAbsoluteUrl('productos/paso3/' . $model->idproducto));
-?>
-    </h3>
-</div>

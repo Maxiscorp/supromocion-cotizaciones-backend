@@ -7,19 +7,21 @@
  */
 $dataprovider = $model->search();
 
-$imagenes=array();
+$imagenes = array();
 foreach ($dataprovider->data as $imagen) {
-    $imagenes=array_merge((array)$imagenes,
-            array(array(
-                'text'=>$imagen->idarchivo0->nombre_archivo,
-                'src'=>Yii::getPathOfAlias('archivos').$imagen->idarchivo0->ruta_archivo,
-                'href'=>'#',
-                ))
-            );
+    $imagenes = array_merge((array) $imagenes, array(array(
+            'text' => $imagen->idarchivo0->nombre_archivo,
+            'src' => Yii::getPathOfAlias('archivos') . $imagen->idarchivo0->ruta_archivo,
+            'href' => '#',
+        ))
+    );
 }
-$this->widget(
-    'ext.SimpleFadeSlideShow.SimpleFadeSlideShow',
-    array(
+if (sizeof($imagenes) > 0) {
+?>
+<h2>Imagenes del producto:</h2>
+<?php
+    $this->widget(
+            'ext.SimpleFadeSlideShow.SimpleFadeSlideShow', array(
         'images' => $imagenes,
         'width' => 700,
         'height' => 500,
@@ -28,5 +30,6 @@ $this->widget(
         'ListElement' => false,
         'PlayPauseElement' => false,
         'autoPlay' => true,
-    )
-);
+            )
+    );
+}

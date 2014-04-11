@@ -7,12 +7,11 @@ $this->breadcrumbs = array(
     'Create',
 );
 ?>
-<h1>
-    Paso 3 de alta de producto
-</h1>
-<?php
-echo CHtml::link('Volver al alta de imagenes ', $this->createAbsoluteUrl('productos/paso2/' . $model->idproducto));
-?>
+    <h2>
+        <?php
+        echo CHtml::link('Volver ', $this->createAbsoluteUrl('productos/admin'));
+        ?>
+    </h2>
 <h2>Detalles del producto</h2>
 
 <table class="tablaform">
@@ -64,10 +63,3 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ));
 
 ?>
-<div style="text-align:right;">
-    <h3>
-        <?php
-        echo CHtml::link('Continuar al alta de materiales ', $this->createAbsoluteUrl('productos/pasofinal/' . $model->idproducto));
-        ?>
-    </h3>
-</div>

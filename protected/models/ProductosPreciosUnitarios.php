@@ -33,7 +33,10 @@ class ProductosPreciosUnitarios extends CActiveRecord {
         return array(
             array('idproducto, cantidad_desde, cantidad_hasta, activo', 'numerical', 'integerOnly' => true),
             array('precio_unitario', 'length', 'max' => 10),
+            array('precio_unitario,cantidad_desde,cantidad_hasta', 'required', 'on' => 'insert'),
+            
             array('fecha_mod', 'safe'),
+            array('precio_unitario','compare','compareValue'=>'0','operator'=>'>','message'=>'el precio unitario debe ser mayor a 0'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('idprecio_producto_unitario, idproducto, cantidad_desde, cantidad_hasta, precio_unitario, fecha_mod, activo', 'safe', 'on' => 'search'),
