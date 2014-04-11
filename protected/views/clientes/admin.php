@@ -8,6 +8,7 @@ $this->breadcrumbs = array(
     'Manage',
 );
 
+
 echo CHtml::link('Agregar cliente', $this->createAbsoluteUrl('clientes/create'));
 ?>
 <?php
