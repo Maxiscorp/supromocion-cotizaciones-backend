@@ -5,6 +5,8 @@ class SiteController extends Controller
 	/**
 	 * Declares class-based actions.
 	 */
+    
+    public $paginamenutabstop = "Cotizaciones";
 	public function actions()
 	{
 		return array(

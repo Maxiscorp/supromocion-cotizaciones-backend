@@ -2,10 +2,7 @@
 /* @var $this ImpresionesTiposController */
 /* @var $model ImpresionesTipos */
 
-$this->breadcrumbs=array(
-	'Impresiones Tiposes'=>array('index'),
-	'Create',
-);
+
 
 $this->menu=array(
 	array('label'=>'List ImpresionesTipos', 'url'=>array('index')),

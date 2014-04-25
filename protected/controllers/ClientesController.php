@@ -1,4 +1,5 @@
 <?php
+
 class ClientesController extends Controller {
 
     /**
@@ -6,8 +7,9 @@ class ClientesController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/abms';
-    public $paginaactual="Clientes";
-    
+    public $paginaactual = "Clientes";
+    public $paginamenutabstop = 'ABMs';
+
     /**
      * @return array action filters
      */
@@ -26,7 +28,7 @@ class ClientesController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'index', 'view', 'admin','delete'),
+                'actions' => array('create', 'update', 'index', 'view', 'admin', 'delete', 'buscar'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -44,6 +46,7 @@ class ClientesController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        $this->paginamenutabstop = "ABMs";
         $agentes = ClientesAgentesRetencion::model()->findAllByAttributes(array('idcliente' => $id, 'activo' => 1));
         $this->render('view', array(
             'model' => $this->loadModel($id),
@@ -56,6 +59,7 @@ class ClientesController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
+        $this->paginamenutabstop = "ABMs";
         $model = new Clientes('logo');
         $modelAgenteIVA = new ClientesAgentesRetencion;
         $modelAgenteIVA->scenario = "iva";
@@ -69,8 +73,8 @@ class ClientesController extends Controller {
         $modelAgenteGanancias = new ClientesAgentesRetencion;
         $modelAgenteGanancias->scenario = "ganancias";
         $modelAgenteGanancias->idagente_retencion = 3;
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
         $modelArchivo = new Archivos;
         $modelArchivo->scenario = 'logo';
         if (isset($_POST['Clientes'])) {
@@ -155,6 +159,8 @@ class ClientesController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
+
+        $this->paginamenutabstop = "ABMs";
         $model = $this->loadModel($id);
         $modelAgenteIVA = ClientesAgentesRetencion::model()->findByAttributes(array('idcliente' => $id, 'idagente_retencion' => 1));
 
@@ -164,8 +170,8 @@ class ClientesController extends Controller {
 
         $modelAgenteGanancias = ClientesAgentesRetencion::model()->findByAttributes(array('idcliente' => $id, 'idagente_retencion' => 3));
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
 
         if (isset($_POST['Clientes'])) {
             $model->attributes = $_POST['Clientes'];
@@ -187,11 +193,11 @@ class ClientesController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        $model=$this->loadModel($id);
-        $model->activo=0;
+        $model = $this->loadModel($id);
+        $model->activo = 0;
         $model->save();
 
-        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
@@ -200,16 +206,43 @@ class ClientesController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
+
+        $this->paginamenutabstop = "ABMs";
         $dataProvider = new CActiveDataProvider('Clientes');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
     }
 
+//  Buscar por ajax para cotizaciones y reportes
+    public function actionBuscar() {
+        if (isset($_GET['term'])) {
+
+            $criteria = new CDbCriteria;
+            $criteria->alias = "cli";
+            $criteria->condition = "cli.razon_social like '%" . $_GET['term'] . "%' or cli.cuit like '%" . $_GET['term'] . "%'";
+            $criteria->order = 'razon_social';
+            $criteria->limit = 30;
+
+            $clientes = Clientes::model()->findAll($criteria);
+            $return_array = array();
+            foreach ($clientes as $cliente) {
+                $return_array[] = array(
+                    'label' => $cliente->razon_social,
+                    'value' => $cliente->razon_social,
+                    'id' => $cliente->idcliente,
+                );
+            }
+            echo CJSON::encode($return_array);
+        }
+    }
+
     /**
      * Manages all models.
      */
     public function actionAdmin() {
+
+        $this->paginamenutabstop = "ABMs";
         $model = new Clientes('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Clientes']))
@@ -244,4 +277,5 @@ class ClientesController extends Controller {
             Yii::app()->end();
         }
     }
+
 }

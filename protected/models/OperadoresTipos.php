@@ -56,7 +56,7 @@ class OperadoresTipos extends CActiveRecord
 	{
 		return array(
 			'idoperador_tipo' => 'Idoperador Tipo',
-			'descripcion' => 'Descripcion',
+			'descripcion' => 'Tipo de operador',
 			'activo' => 'Activo',
 		);
 	}

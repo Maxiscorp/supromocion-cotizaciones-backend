@@ -26,7 +26,7 @@
 
 	<div id="header">
 		<div class="logo" style="float:left;" ><?php echo "Sistema de cotizaciones"; ?> </div>
-		<div id="logo" style="float:right;"> <img src="../images/logo.gif" /></div>
+		<div id="logo" style="float:right;"> <img src="http://backend.supromocion.sysnetic.com.ar/images/logo.gif" /></div>
 		
 	<div class="clear"></div>
 	</div><!-- header -->
@@ -35,9 +35,9 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				/*array('label'=>'Inicio', 'url'=>array('/site/index'),'visible'=>!Yii::app()->user->isGuest),*/
-				array('label'=>'Cotizaciones', 'url'=>array('/site/page', 'view'=>'about'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'ABMs', 'url'=>array('/materiales/admin'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Mis Datos', 'url'=>array('/operadores/update'),'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Cotizaciones', 'url'=>array('/cotizaciones/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="Cotizaciones"?true:false),
+				array('label'=>'ABMs', 'url'=>array('/clientes/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="ABMs"?true:false),
+				array('label'=>'Mis Datos', 'url'=>array('/operadores/update'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="MisDatos"?true:false),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				
 				
@@ -47,20 +47,22 @@
 				'itemOptions'=>array('class'=>'css-item'),
 				)
 			),
-		)); ?>
+		)); 
+            ?>
 	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
+	<?php /*if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->
-	<?php endif?>
+	<?php endif */
+        ?>
 
 	<?php echo $content; ?>
 
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+		Copyright &copy; <?php echo date('Y'); ?> by Sysnetic.com.ar<br/>
 		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->

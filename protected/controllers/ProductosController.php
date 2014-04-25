@@ -8,6 +8,7 @@ class ProductosController extends Controller {
      */
     public $layout = '//layouts/abms';
     public $paginaactual = "Productos";
+    public $paginamenutabstop = "ABMs";
 
     /**
      * @return array action filters

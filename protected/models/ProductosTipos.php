@@ -32,6 +32,10 @@ class ProductosTipos extends CActiveRecord
 		return array(
 			array('activo', 'numerical', 'integerOnly'=>true),
 			array('descripcion', 'length', 'max'=>150),
+                    	array('descripcion', 'required', 'on'=>"insert"),
+                    	array('descripcion', 'unique', 'on'=>"insert"),
+                    
+                    
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('idproducto_tipo, descripcion, activo', 'safe', 'on'=>'search'),

@@ -1,13 +1,9 @@
 <?php
-
 /* @var $this ImpresionesTiposController */
 /* @var $model ImpresionesTipos */
-
-$this->breadcrumbs = array(
-    'Tipos de impresion' => array('admin'),
-    'Manage',
-);
-
+?>
+<h1>ABM Tipos de impresion</h1>
+<?php
 echo CHtml::link('Agregar Tipo de Impresion', $this->createAbsoluteUrl('impresionestipos/create'));
 
 $this->widget('zii.widgets.grid.CGridView', array(
@@ -20,17 +16,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'descripcion',
         array(
             'class' => 'CButtonColumn',
-            'template' => '{update}',/*{delete}*/
+            'template' => '{update}', /* {delete} */
             'buttons' => array
                 (
                 'update' => array(
                     'label' => 'Editar tipo de impresion',
                     'imageUrl' => $this->createUrl('../../images/silk/printer.png'),
                 ),
-                /*'delete' => array(
-                    'label' => 'borrar tipo de impresion',
-                    'imageUrl' => $this->createUrl('../../images/silk/printer_delete.png'),
-                )*/
+            /* 'delete' => array(
+              'label' => 'borrar tipo de impresion',
+              'imageUrl' => $this->createUrl('../../images/silk/printer_delete.png'),
+              ) */
             )
         ),
     ),

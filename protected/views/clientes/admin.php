@@ -7,11 +7,10 @@ $this->breadcrumbs = array(
     'Clientes' => array('admin'),
     'Manage',
 );
-
-
-echo CHtml::link('Agregar cliente', $this->createAbsoluteUrl('clientes/create'));
 ?>
+<h1>ABM Clientes</h1>
 <?php
+echo CHtml::link('Agregar cliente', $this->createAbsoluteUrl('clientes/create'));
 
 $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'clientes-grid',
@@ -25,22 +24,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'nombre_comercial',
         'contacto',
         'email',
-        /*
-          'telefono',
-          'envia_mails_seguimiento',
-          'localidad',
-          'codigo_postal',
-          'idcondicion_iva',
-          'idarchivo_logo',
-          'idprovincia',
-          'fecha_alta',
-          'fecha_ultima_cotizacion_aprobada',
-          'recontacar_cotizaciones',
-          'activo',
-         */
+
         array(
-            'class' => 'CButtonColumn',
-            
+            'class' => 'CButtonColumn',            
         'deleteConfirmation'=>"js:'El cliente '+$(this).parent().parent().children('razon_social').text()+' será borrado! Continuar?'",
             'template' => '{update}{delete}',
             'buttons' => array

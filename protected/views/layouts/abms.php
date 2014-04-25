@@ -4,6 +4,18 @@
         <div class="tabs_izquierda">
             <div class="menu">
                 <ul class="listaopciones">
+                    <?php
+                    if(Yii::app()->user->getState("administrador")==1){
+                    ?>
+                    <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "Operadores" ? "class=\"selected\"" : ""); ?>>
+
+                        <a href="<?php echo Yii::app()->createUrl('operadores/admin') ?>">
+                            Operadores
+                        </a>
+                    </li>
+                    <?php
+                    }
+                    ?>
                     <li <?php echo (isset($this->paginaactual) && $this->paginaactual == "Clientes" ? "class=\"selected\"" : ""); ?>>
 
                         <a href="<?php echo Yii::app()->createUrl('clientes/admin') ?>">
@@ -36,7 +48,7 @@
 
                 </ul>
             </div>
-            <div class="datos">
+            <div class="datos" >
                 <?php echo $content; ?>
             </div>
         </div>

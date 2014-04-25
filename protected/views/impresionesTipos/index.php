@@ -2,9 +2,6 @@
 /* @var $this ImpresionesTiposController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs=array(
-	'Impresiones Tiposes',
-);
 
 $this->menu=array(
 	array('label'=>'Create ImpresionesTipos', 'url'=>array('create')),

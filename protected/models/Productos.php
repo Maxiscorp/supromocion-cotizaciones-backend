@@ -62,7 +62,8 @@ class Productos extends CActiveRecord {
         'productosMateriales' => array(self::HAS_MANY, 'ProductosMateriales', 'idproducto'),
         'productosPreciosUnitarioses' => array(self::HAS_MANY, 'ProductosPreciosUnitarios', 'idproducto'),
         'CantidadImagenes' => array(self::STAT, 'productosImagenes', 'idproducto',
-        'select' => 'count(idproducto)', ),
+        'select' => 'count(idproducto)',
+        'condition'=>'activo=1'),
         );
     }
 

@@ -1,12 +1,12 @@
 <?php
 
- Yii::setPathOfAlias('archivos','http://archivos.supromocion.sysnetic.com.ar/supromocion');
+Yii::setPathOfAlias('archivos', 'http://archivos.supromocion.sysnetic.com.ar/supromocion');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-    'timeZone'=>'America/Argentina/Buenos_Aires',
+    'timeZone' => 'America/Argentina/Buenos_Aires',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Su Promoción | Sistema de Cotizaciones',
     'sourceLanguage' => 'es',
@@ -29,7 +29,6 @@ return array(
             'ipFilters' => array('127.0.0.1', '::1', '192.168.2.40', '192.168.2.41', '192.168.2.42', '200.69.30.195'),
         ),
     ),
-	
     'behaviors' => array(
         'onBeginRequest' => array(
             'class' => 'application.components.RequireLogin'
@@ -42,9 +41,10 @@ return array(
             'transportType' => 'smtp',
             'transportOptions' => array(
                 'host' => 'r101.websiteservername.com',
-                'username' => 'mtejada@sysnetic.com.ar',
+                'username' => 'info@supromocion.sysnetic.com.ar',
                 'password' => 'mundial2006',
-                 'port' => '465',
+                'port' => '465',
+                'encryption' => 'ssl', // use ssl
             ),
             'viewPath' => 'application.views.mail',
             'logging' => true,
@@ -67,7 +67,7 @@ return array(
                     'theme' => 'cjuitabs',
                     'cssFile' => 'jquery-ui.css',
                 ),
-        )),
+            )),
         'urlManager' => array(
             'urlFormat' => 'path',
             'showScriptName' => false,
@@ -85,7 +85,6 @@ return array(
          * 
          */
         // uncomment the following to use a MySQL database
-
         'db' => array(
             'connectionString' => 'mysql:host=127.0.0.1;dbname=sysne621_supromocion;port=3306;',
             //'emulatePrepare' => true,
@@ -104,23 +103,20 @@ return array(
                     'class' => 'CFileLogRoute',
                     'levels' => 'error, warning',
                 ),
-            // uncomment the following to show log messages on web pages
-
-             array(
-              'class'=>'CWebLogRoute',
-              ), 
-
+                // uncomment the following to show log messages on web pages
+                array(
+                    'class' => 'CWebLogRoute',
+                ),
             ),
         ),
-        
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
     'params' => array(
         // this is used in contact page
         'adminEmail' => 'mtejada@sysnetic.com.ar',
-       /* 'upload_path_base' =>  '/home/sysne621/public_html/archivos/supromocion/',*/
-        'upload_path_base' =>  '/git/archivos/supromocion/',
+        /* 'upload_path_base' =>  '/home/sysne621/public_html/archivos/supromocion/', */
+        'upload_path_base' => '/git/archivos/supromocion/',
         'debugEmail' => 'mtejada@sysnetic.com.ar'
     ),
 );

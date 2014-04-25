@@ -1,27 +1,8 @@
 <?php
 /* @var $this MaterialesController */
 /* @var $model Materiales */
-
-$this->breadcrumbs = array(
-    'Materiales' => array('admin'),
-    'Manage',
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#materiales-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
-
-<h1>Materiales</h1>
+<h1>ABM Materiales</h1>
 
 
 

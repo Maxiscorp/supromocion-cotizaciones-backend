@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Operadores</h1>
+<h1>Nuevo Operador</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

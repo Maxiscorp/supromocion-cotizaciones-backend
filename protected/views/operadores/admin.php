@@ -1,62 +1,52 @@
 <?php
 /* @var $this OperadoresController */
 /* @var $model Operadores */
-
-$this->breadcrumbs=array(
-	'Operadores'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Operadores', 'url'=>array('index')),
-	array('label'=>'Create Operadores', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#operadores-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
-<h1>Manage Operadores</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'operadores-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'idoperador',
-		'nombre',
-		'apellido',
-		'usuario',
-		'password',
-		'email',
-		/*
-		'idoperador_tipo',
-		'activo',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+<h1>ABM Operadores</h1>
+<?php
+echo CHtml::link('Agregar operador', $this->createAbsoluteUrl('operadores/create'));
+$this->widget('zii.widgets.grid.CGridView', array(
+    'id' => 'operadores-grid',
+    'dataProvider' => $model->search(),
+    //'filter'=>$model,
+    'columns' => array(
+        'idoperador',
+        'nombre',
+        'apellido',
+        'idoperadorTipo.descripcion',
+        'usuario',
+        'email',
+        /*
+          'idoperador_tipo',
+          'activo',
+         */
+        array(
+            'class' => 'CButtonColumn',
+            'template' => '{add_admin}{del_admin}{porcentaje_comision}',
+            'buttons' => array
+                (
+                'add_admin' => array(
+                    'label' => 'Cambiar rol a administrador',
+                    'imageUrl' => $this->createUrl('../../images/silk/user_suit.png'),
+                    'url' => 'Yii::app()->createUrl("operadores/cambio", array("id"=>$data->idoperador,"idoperador_tipo"=>2))',
+                    'visible'=>'$data->idoperador_tipo==1',
+                ),
+                'del_admin' => array(
+                    'label' => 'Cambiar rol operador normal',
+                    'imageUrl' => $this->createUrl('../../images/silk/user.png'),
+                    'url' => 'Yii::app()->createUrl("operadores/cambio", array("id"=>$data->idoperador,"idoperador_tipo"=>1))',
+                    
+                    'visible'=>'$data->idoperador_tipo==2',
+                ),
+                'porcentaje_comision' => array(
+                    'label' => 'Cambiar porcentajes de comision',
+                    'imageUrl' => $this->createUrl('../../images/silk/calculator.png'),
+                    'url' => 'Yii::app()->createUrl("operadores/agregarporcentajes", array("id"=>$data->idoperador))',
+                    
+                ),
+            )
+        ),
+    ),
+));
+?>
