@@ -6,8 +6,7 @@
  * The followings are the available columns in table 'productos_precios_unitarios':
  * @property integer $idprecio_producto_unitario
  * @property integer $idproducto
- * @property integer $cantidad_desde
- * @property integer $cantidad_hasta
+ * @property integer $cantidad
  * @property string $precio_unitario
  * @property string $fecha_mod
  * @property integer $activo
@@ -31,15 +30,15 @@ class ProductosPreciosUnitarios extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('idproducto, cantidad_desde, cantidad_hasta, activo', 'numerical', 'integerOnly' => true),
+            array('idproducto, cantidad, activo', 'numerical', 'integerOnly' => true),
             array('precio_unitario', 'length', 'max' => 10),
-            array('precio_unitario,cantidad_desde,cantidad_hasta', 'required', 'on' => 'insert'),
+            array('precio_unitario,cantidad', 'required', 'on' => 'insert'),
             
             array('fecha_mod', 'safe'),
             array('precio_unitario','compare','compareValue'=>'0','operator'=>'>','message'=>'el precio unitario debe ser mayor a 0'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('idprecio_producto_unitario, idproducto, cantidad_desde, cantidad_hasta, precio_unitario, fecha_mod, activo', 'safe', 'on' => 'search'),
+            array('idprecio_producto_unitario, idproducto, cantidad, precio_unitario, fecha_mod, activo', 'safe', 'on' => 'search'),
         );
     }
 
@@ -63,8 +62,7 @@ class ProductosPreciosUnitarios extends CActiveRecord {
         return array(
             'idprecio_producto_unitario' => 'Idprecio Producto Unitario',
             'idproducto' => 'Idproducto',
-            'cantidad_desde' => 'Cantidad Desde',
-            'cantidad_hasta' => 'Cantidad Hasta',
+            'cantidad' => 'Cantidad',
             'precio_unitario' => 'Precio Unitario',
             'fecha_mod' => 'Fecha Mod',
             'activo' => 'Activo',
@@ -90,8 +88,7 @@ class ProductosPreciosUnitarios extends CActiveRecord {
 
         $criteria->compare('idprecio_producto_unitario', $this->idprecio_producto_unitario);
         $criteria->compare('idproducto', $this->idproducto);
-        $criteria->compare('cantidad_desde', $this->cantidad_desde);
-        $criteria->compare('cantidad_hasta', $this->cantidad_hasta);
+        $criteria->compare('cantidad', $this->cantidad);
         $criteria->compare('precio_unitario', $this->precio_unitario, true);
         $criteria->compare('fecha_mod', $this->fecha_mod, true);
         $criteria->compare('activo', $this->activo);

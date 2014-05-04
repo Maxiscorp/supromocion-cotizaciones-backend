@@ -22,15 +22,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'cantidad_desde'); ?>
-		<?php echo $form->textField($model,'cantidad_desde'); ?>
-		<?php echo $form->error($model,'cantidad_desde'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'cantidad_hasta'); ?>
-		<?php echo $form->textField($model,'cantidad_hasta'); ?>
-		<?php echo $form->error($model,'cantidad_hasta'); ?>
+		<?php echo $form->labelEx($model,'cantidad'); ?>
+		<?php echo $form->textField($model,'cantidad'); ?>
+		<?php echo $form->error($model,'cantidad'); ?>
 	</div>
 
 	<div class="row">

@@ -13,12 +13,8 @@
 	<?php echo CHtml::encode($data->idproducto); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('cantidad_desde')); ?>:</b>
-	<?php echo CHtml::encode($data->cantidad_desde); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('cantidad_hasta')); ?>:</b>
-	<?php echo CHtml::encode($data->cantidad_hasta); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('cantidad')); ?>:</b>
+	<?php echo CHtml::encode($data->cantidad); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('precio_unitario')); ?>:</b>

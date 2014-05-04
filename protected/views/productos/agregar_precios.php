@@ -40,8 +40,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $modelPreciosUnitarios->search(),
     //'filter'=>$modelPreciosUnitarios,
     'columns' => array(
-        'cantidad_desde',
-        'cantidad_hasta',
+        'cantidad',
         'precio_unitario',
         /*
           'activo',

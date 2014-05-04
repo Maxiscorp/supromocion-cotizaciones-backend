@@ -178,11 +178,9 @@ class ProductosController extends Controller {
 
         if (isset($_POST['ProductosPreciosUnitarios'])) {
             $modelPrecioUnitario->attributes = $_POST['ProductosPreciosUnitarios'];
-            $existe = ProductosPreciosUnitarios::model()->findAllByAttributes(
-                    array('activo' => 1, 'idproducto' => $id), array('condition' => ':desde between cantidad_desde and cantidad_hasta and :hasta between cantidad_desde and cantidad_hasta',
-                'params' =>
-                array(':desde' => $modelPrecioUnitario->cantidad_desde, ':hasta' => $modelPrecioUnitario->cantidad_hasta)));
 
+            $existe = ProductosPreciosUnitarios::model()->findAllByAttributes(
+                    array('activo' => 1, 'idproducto' => $id, 'cantidad' => $modelPrecioUnitario->cantidad));
 
             if (sizeof($existe) == 0) {
 
@@ -199,8 +197,7 @@ class ProductosController extends Controller {
                 }
             } else {
                 $modelPrecioUnitario->validate();
-                $modelPrecioUnitario->addError("cantidad_desde", "El rango o parte del rango elegido ya esta asociado a un precio, por favor verificar.");
-                $modelPrecioUnitario->addError("cantidad_hasta", "El rango o parte del rango elegido ya esta asociado a un precio, por favor verificar.");
+                $modelPrecioUnitario->addError("cantidad", "la cantidad elegida ya esta asociada a un precio, por favor verificar.");
             }
         }
 
@@ -225,9 +222,7 @@ class ProductosController extends Controller {
         if (isset($_POST['ProductosPreciosUnitarios'])) {
             $modelPrecioUnitario->attributes = $_POST['ProductosPreciosUnitarios'];
             $existe = ProductosPreciosUnitarios::model()->findAllByAttributes(
-                    array('activo' => 1, 'idproducto' => $id), array('condition' => ':desde between cantidad_desde and cantidad_hasta and :hasta between cantidad_desde and cantidad_hasta',
-                'params' =>
-                array(':desde' => $modelPrecioUnitario->cantidad_desde, ':hasta' => $modelPrecioUnitario->cantidad_hasta)));
+                    array('activo' => 1, 'idproducto' => $id, 'cantidad' => $modelPrecioUnitario->cantidad));
 
 
             if (sizeof($existe) == 0) {
@@ -245,8 +240,7 @@ class ProductosController extends Controller {
                 }
             } else {
                 $modelPrecioUnitario->validate();
-                $modelPrecioUnitario->addError("cantidad_desde", "El rango o parte del rango elegido ya esta asociado a un precio, por favor verificar.");
-                $modelPrecioUnitario->addError("cantidad_hasta", "El rango o parte del rango elegido ya esta asociado a un precio, por favor verificar.");
+                $modelPrecioUnitario->addError("cantidad", "la cantidad elegida ya esta asociada a un precio, por favor verificar.");
             }
         }
 

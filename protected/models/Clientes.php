@@ -52,7 +52,7 @@ class Clientes extends CActiveRecord {
             array('envia_mails_seguimiento, activo,idcondicion_iva', 'numerical', 'integerOnly' => true),
             array('cuit, idprovincia', 'length', 'max' => 11),
             array('idcondicion_iva', 'required','on'=>'logo'),
-            array('cuit', 'unique'),
+            //array('cuit', 'unique'),
             
             array('razon_social, nombre_comercial, contacto, email, telefono, localidad', 'length', 'max' => 100),
             array('codigo_postal', 'length', 'max' => 20),

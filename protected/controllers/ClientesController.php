@@ -63,15 +63,18 @@ class ClientesController extends Controller {
         $model = new Clientes('logo');
         $modelAgenteIVA = new ClientesAgentesRetencion;
         $modelAgenteIVA->scenario = "iva";
+        $modelAgenteIVA->activo=0;
         $modelAgenteIVA->idagente_retencion = 1;
 
 
         $modelAgenteIIBB = new ClientesAgentesRetencion;
         $modelAgenteIIBB->scenario = "iibb";
+        $modelAgenteIIBB->activo = 0;
         $modelAgenteIIBB->idagente_retencion = 2;
 
         $modelAgenteGanancias = new ClientesAgentesRetencion;
         $modelAgenteGanancias->scenario = "ganancias";
+        $modelAgenteGanancias->activo=0;
         $modelAgenteGanancias->idagente_retencion = 3;
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
