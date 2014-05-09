@@ -77,7 +77,7 @@ class ImpresionesTiposController extends Controller {
      */
     public function actionColores($idimpresion_tipo, $idimpresion_color) {
         $model = new ImpresionesTiposColoresPreciosUnitarios('search');
-        $model->idimpresion_tipo = $idimpresion_tipo;
+        $model->idimpresion_tipo = $idimpres ion_tipo;
         $model->idimpresion_color = $idimpresion_color;
         $model->activo = 1;
         $this->render('precios_colores', array('model' => $model));
