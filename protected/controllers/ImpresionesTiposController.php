@@ -75,6 +75,14 @@ class ImpresionesTiposController extends Controller {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
+    public function actionColores($idimpresion_tipo, $idimpresion_color) {
+        $model = new ImpresionesTiposColoresPreciosUnitarios('search');
+        $model->idimpresion_tipo = $idimpresion_tipo;
+        $model->idimpresion_color = $idimpresion_color;
+        $model->activo = 1;
+        $this->render('precios_colores', array('model' => $model));
+    }
+
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
 
@@ -128,9 +136,11 @@ class ImpresionesTiposController extends Controller {
             'model' => $model,
         ));
     }
-    public function actionPreciosunitarios($idimpresion_tipo){
+
+    public function actionPreciosunitarios($idimpresion_tipo) {
         
     }
+
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
