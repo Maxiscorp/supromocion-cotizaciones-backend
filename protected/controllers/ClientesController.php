@@ -223,7 +223,7 @@ class ClientesController extends Controller {
 
             $criteria = new CDbCriteria;
             $criteria->alias = "cli";
-            $criteria->condition = "cli.razon_social like '%" . $_GET['term'] . "%' or cli.cuit like '%" . $_GET['term'] . "%'";
+            $criteria->condition = "cli.razon_social like '%" . $_GET['term'] . "%' or cli.cuit like '%" . $_GET['term'] . "%' and activo=1";
             $criteria->order = 'razon_social';
             $criteria->limit = 30;
 

@@ -77,6 +77,8 @@ class Cotizaciones extends CActiveRecord {
             'cotizacionesNotases' => array(self::HAS_MANY, 'CotizacionesNotas', 'idcotizacion'),
             'cotizacionesParciales' => array(self::HAS_MANY, 'CotizacionesParciales', 'idcotizacion'),
             'ordenesProduccions' => array(self::HAS_MANY, 'OrdenesProduccion', 'idcotizacion'),
+            'importeSum' => array(self::STAT, 'CotizacionesParciales', 'idcotizacion',
+                'select' => 'SUM(importe_producto+importe_impresion)',),
         );
     }
 
@@ -91,7 +93,7 @@ class Cotizaciones extends CActiveRecord {
             'idcliente' => 'Idcliente',
             'idoperador' => 'Idoperador',
             'idcotizacion_estado' => 'Idcotizacion Estado',
-            'idmedio_pago' => 'Idmedio Pago',
+            'idmedio_pago' => 'Medio de Pago',
             'fecha_ingreso' => 'Fecha Ingreso',
             'fecha_vencimiento' => 'Fecha Vencimiento',
             'fecha_recontacto' => 'Fecha Recontacto',

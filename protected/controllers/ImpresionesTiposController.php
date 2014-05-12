@@ -28,7 +28,7 @@ class ImpresionesTiposController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'admin','colores'),
+                'actions' => array('create', 'update', 'admin', 'colores', 'deleteprecio'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -79,7 +79,32 @@ class ImpresionesTiposController extends Controller {
         $model = new ImpresionesTiposColoresPreciosUnitarios('search');
         $model->idimpresion_tipo = $id;
         $model->activo = 1;
-        $this->render('precios_colores', array('model' => $model));
+        $modelInsert = new ImpresionesTiposColoresPreciosUnitarios('insert');
+        $modelInsert->activo = 1;
+        $modelInsert->idimpresion_tipo = $id;
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if (isset($_POST['ImpresionesTiposColoresPreciosUnitarios'])) {
+
+            $modelInsert->attributes = $_POST['ImpresionesTiposColoresPreciosUnitarios'];
+            $existe = ImpresionesTiposColoresPreciosUnitarios::model()->findAllByAttributes(
+                    array('activo' => 1, 'idimpresion_tipo' => $id, 'idimpresion_color' => $modelInsert->idimpresion_color, 'cantidad' => $modelInsert->cantidad));
+
+            if (sizeof($existe) == 0) {
+                if ($modelInsert->validate()) {
+                    $modelInsert->save();
+
+                    $this->redirect(array('colores', 'id' => $modelInsert->idimpresion_tipo, '#' => $modelInsert->idimpresion_color));
+                }
+            } else {
+                $modelInsert->validate();
+                $modelInsert->addError("cantidad", "la cantidad elegida ya esta asociada a un precio, por favor verificar.");
+            }
+        }
+
+
+        $this->render('precios_colores', array('model' => $model, 'modelInsert' => $modelInsert));
     }
 
     public function actionUpdate($id) {
@@ -112,6 +137,17 @@ class ImpresionesTiposController extends Controller {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
+    public function actionDeleteprecio($id) {
+        $model = ImpresionesTiposColoresPreciosUnitarios::model()->findByPk($id);
+        $model->activo = 0;
+        $model->save();
+
+        $this->redirect(array('colores', 'id' => $model->idimpresion_tipo, '#' => $model->idimpresion_color));
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+    }
+
     /**
      * Lists all models.
      */
@@ -134,10 +170,6 @@ class ImpresionesTiposController extends Controller {
         $this->render('admin', array(
             'model' => $model,
         ));
-    }
-
-    public function actionPreciosunitarios($idimpresion_tipo) {
-        
     }
 
     /**

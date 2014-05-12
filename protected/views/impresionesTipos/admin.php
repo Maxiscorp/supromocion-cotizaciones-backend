@@ -16,17 +16,19 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'descripcion',
         array(
             'class' => 'CButtonColumn',
-            'template' => '{update}', /* {delete} */
+            'template' => '{update}{precios}',
             'buttons' => array
                 (
                 'update' => array(
                     'label' => 'Editar tipo de impresion',
                     'imageUrl' => $this->createUrl('../../images/silk/printer.png'),
                 ),
-            /* 'delete' => array(
-              'label' => 'borrar tipo de impresion',
-              'imageUrl' => $this->createUrl('../../images/silk/printer_delete.png'),
-              ) */
+             'precios' => array(
+              'label' => 'Agregar precios por cantidad y colores',
+              'imageUrl' => $this->createUrl('../../images/silk/money_add.png'),
+                 'url' => 'Yii::app()->createUrl("impresionestipos/colores", array("id"=>$data->idimpresion_tipo))',
+                    
+              ) 
             )
         ),
     ),

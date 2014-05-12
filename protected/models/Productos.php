@@ -72,7 +72,7 @@ class Productos extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'idproducto' => 'Idproducto',
+            'idproducto' => 'Producto',
             'idproducto_tipo' => 'Tipo de producto',
             'idmoneda' => 'Moneda',
             'codigo_producto_interno' => 'Codigo interno del producto',

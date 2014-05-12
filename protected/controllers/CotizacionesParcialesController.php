@@ -1,12 +1,13 @@
 <?php
 
-class CotizacionesController extends Controller {
+class CotizacionesParcialesController extends Controller {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/column1';
+    
     public $paginamenutabstop = 'Cotizaciones';
 
     /**
@@ -26,9 +27,8 @@ class CotizacionesController extends Controller {
      */
     public function accessRules() {
         return array(
-
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update','admin', 'delete'),
+                'actions' => array('paso1','paso2', 'update', 'admin', 'delete'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -51,23 +51,38 @@ class CotizacionesController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
-        $model = new Cotizaciones;
-
+    public function actionPaso1($id) {
+        $model = new CotizacionesParciales('insert');
+        $model->idcotizacion=$id;
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Cotizaciones'])) {
-            $model->attributes = $_POST['Cotizaciones'];
+        if (isset($_POST['CotizacionesParciales'])) {
+            $model->attributes = $_POST['CotizacionesParciales'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idcotizacion));
+                $this->redirect(array('paso2', 'id' => $model->idcotizacion_parcial));
         }
 
-        $this->render('create', array(
+        $this->render('create_paso1', array(
             'model' => $model,
         ));
     }
+    public function actionPaso2($id) {
+        $model = $this->loadModel($id);
+        $model->scenario="paso2";
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
+        if (isset($_POST['CotizacionesParciales'])) {
+            $model->attributes = $_POST['CotizacionesParciales'];
+            if ($model->save())
+                $this->redirect(array('paso3', 'id' => $model->idcotizacion_parcial));
+        }
+
+        $this->render('create_paso2', array(
+            'model' => $model,
+        ));
+    }
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -79,10 +94,10 @@ class CotizacionesController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Cotizaciones'])) {
-            $model->attributes = $_POST['Cotizaciones'];
+        if (isset($_POST['CotizacionesParciales'])) {
+            $model->attributes = $_POST['CotizacionesParciales'];
             if ($model->save())
-                $this->redirect(array('admin'));
+                $this->redirect(array('view', 'id' => $model->idcotizacion_parcial));
         }
 
         $this->render('update', array(
@@ -107,7 +122,7 @@ class CotizacionesController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('Cotizaciones');
+        $dataProvider = new CActiveDataProvider('CotizacionesParciales');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -116,11 +131,12 @@ class CotizacionesController extends Controller {
     /**
      * Manages all models.
      */
-    public function actionAdmin() {
-        $model = new Cotizaciones('search');
+    public function actionAdmin($id) {
+        $model = new CotizacionesParciales('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Cotizaciones']))
-            $model->attributes = $_GET['Cotizaciones'];
+        $model->idcotizacion=$id;
+        if (isset($_GET['CotizacionesParciales']))
+            $model->attributes = $_GET['CotizacionesParciales'];
 
         $this->render('admin', array(
             'model' => $model,
@@ -131,11 +147,11 @@ class CotizacionesController extends Controller {
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return Cotizaciones the loaded model
+     * @return CotizacionesParciales the loaded model
      * @throws CHttpException
      */
     public function loadModel($id) {
-        $model = Cotizaciones::model()->findByPk($id);
+        $model = CotizacionesParciales::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -143,10 +159,10 @@ class CotizacionesController extends Controller {
 
     /**
      * Performs the AJAX validation.
-     * @param Cotizaciones $model the model to be validated
+     * @param CotizacionesParciales $model the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'cotizaciones-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'cotizaciones-parciales-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

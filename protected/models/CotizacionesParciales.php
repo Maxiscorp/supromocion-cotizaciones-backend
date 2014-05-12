@@ -12,7 +12,8 @@
  * @property integer $idimpresion_fases
  * @property integer $idarchivo_logo
  * @property integer $cantidad
- * @property string $importe
+ * @property string $importe_producto
+ * @property string $importe_impresion
  * @property string $tiempo_produccion
  * @property string $nota
  * @property string $fecha_ingreso
@@ -28,6 +29,16 @@
  */
 class CotizacionesParciales extends CActiveRecord
 {
+	/**
+	 * Returns the static model of the specified AR class.
+	 * @param string $className active record class name.
+	 * @return CotizacionesParciales the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -45,12 +56,12 @@ class CotizacionesParciales extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('idcotizacion_parcial, idcotizacion, idproducto, idimpresion_colores, idimpresion_tipo, idimpresion_fases, idarchivo_logo, cantidad, activo', 'numerical', 'integerOnly'=>true),
-			array('importe', 'length', 'max'=>10),
+			array('importe_producto, importe_impresion', 'length', 'max'=>10),
 			array('nota', 'length', 'max'=>300),
 			array('tiempo_produccion, fecha_ingreso', 'safe'),
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('idcotizacion_parcial, idcotizacion, idproducto, idimpresion_colores, idimpresion_tipo, idimpresion_fases, idarchivo_logo, cantidad, importe, tiempo_produccion, nota, fecha_ingreso, activo', 'safe', 'on'=>'search'),
+			// Please remove those attributes that should not be searched.
+			array('idcotizacion_parcial, idcotizacion, idproducto, idimpresion_colores, idimpresion_tipo, idimpresion_fases, idarchivo_logo, cantidad, importe_producto, importe_impresion, tiempo_produccion, nota, fecha_ingreso, activo', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,13 +90,14 @@ class CotizacionesParciales extends CActiveRecord
 		return array(
 			'idcotizacion_parcial' => 'Idcotizacion Parcial',
 			'idcotizacion' => 'Idcotizacion',
-			'idproducto' => 'Idproducto',
-			'idimpresion_colores' => 'Idimpresion Colores',
-			'idimpresion_tipo' => 'Idimpresion Tipo',
-			'idimpresion_fases' => 'Idimpresion Fases',
+			'idproducto' => 'Producto',
+			'idimpresion_colores' => 'Cantidad colores',
+			'idimpresion_tipo' => 'Tipo de impresion',
+			'idimpresion_fases' => 'Fases',
 			'idarchivo_logo' => 'Idarchivo Logo',
 			'cantidad' => 'Cantidad',
-			'importe' => 'Importe',
+			'importe_producto' => 'Importe Producto',
+			'importe_impresion' => 'Importe Impresion',
 			'tiempo_produccion' => 'Tiempo Produccion',
 			'nota' => 'Nota',
 			'fecha_ingreso' => 'Fecha Ingreso',
@@ -95,19 +107,12 @@ class CotizacionesParciales extends CActiveRecord
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
 
 		$criteria=new CDbCriteria;
 
@@ -119,7 +124,8 @@ class CotizacionesParciales extends CActiveRecord
 		$criteria->compare('idimpresion_fases',$this->idimpresion_fases);
 		$criteria->compare('idarchivo_logo',$this->idarchivo_logo);
 		$criteria->compare('cantidad',$this->cantidad);
-		$criteria->compare('importe',$this->importe,true);
+		$criteria->compare('importe_producto',$this->importe_producto,true);
+		$criteria->compare('importe_impresion',$this->importe_impresion,true);
 		$criteria->compare('tiempo_produccion',$this->tiempo_produccion,true);
 		$criteria->compare('nota',$this->nota,true);
 		$criteria->compare('fecha_ingreso',$this->fecha_ingreso,true);
@@ -128,16 +134,5 @@ class CotizacionesParciales extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return CotizacionesParciales the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
 	}
 }
