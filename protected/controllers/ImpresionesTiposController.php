@@ -28,7 +28,7 @@ class ImpresionesTiposController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'admin'),
+                'actions' => array('create', 'update', 'admin','colores'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -75,10 +75,9 @@ class ImpresionesTiposController extends Controller {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionColores($idimpresion_tipo, $idimpresion_color) {
+    public function actionColores($id) {
         $model = new ImpresionesTiposColoresPreciosUnitarios('search');
-        $model->idimpresion_tipo = $idimpres ion_tipo;
-        $model->idimpresion_color = $idimpresion_color;
+        $model->idimpresion_tipo = $id;
         $model->activo = 1;
         $this->render('precios_colores', array('model' => $model));
     }
