@@ -50,7 +50,9 @@
                     ),
                 ));
                 ?>
-            </td>
+                El cliente no aparece por cuit o razon social?<?php echo CHtml::link('  Agregalo!',array('/clientes/create'), array('target'=>'_blank')); ?>
+
+            </td> 
         </tr>
         <tr>
             <td class="coltitulos">

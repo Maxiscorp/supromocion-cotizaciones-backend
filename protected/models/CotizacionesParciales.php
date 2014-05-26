@@ -11,9 +11,6 @@
  * @property integer $idimpresion_tipo
  * @property integer $idimpresion_fases
  * @property integer $idarchivo_logo
- * @property integer $cantidad
- * @property string $importe_producto
- * @property string $importe_impresion
  * @property string $tiempo_produccion
  * @property string $nota
  * @property string $fecha_ingreso
@@ -26,6 +23,7 @@
  * @property ImpresionesFases $idimpresionFases
  * @property ImpresionesTipos $idimpresionTipo
  * @property Productos $idproducto0
+ * @property CotizacionesParcialesDetalle[] $cotizacionesParcialesDetalles
  */
 class CotizacionesParciales extends CActiveRecord
 {
@@ -55,13 +53,12 @@ class CotizacionesParciales extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idcotizacion_parcial, idcotizacion, idproducto, idimpresion_colores, idimpresion_tipo, idimpresion_fases, idarchivo_logo, cantidad, activo', 'numerical', 'integerOnly'=>true),
-			array('importe_producto, importe_impresion', 'length', 'max'=>10),
+			array('idcotizacion, idproducto, idimpresion_colores, idimpresion_tipo, idimpresion_fases, idarchivo_logo, activo', 'numerical', 'integerOnly'=>true),
 			array('nota', 'length', 'max'=>300),
 			array('tiempo_produccion, fecha_ingreso', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('idcotizacion_parcial, idcotizacion, idproducto, idimpresion_colores, idimpresion_tipo, idimpresion_fases, idarchivo_logo, cantidad, importe_producto, importe_impresion, tiempo_produccion, nota, fecha_ingreso, activo', 'safe', 'on'=>'search'),
+			array('idcotizacion_parcial, idcotizacion, idproducto, idimpresion_colores, idimpresion_tipo, idimpresion_fases, idarchivo_logo, tiempo_produccion, nota, fecha_ingreso, activo', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,6 +76,7 @@ class CotizacionesParciales extends CActiveRecord
 			'idimpresionFases' => array(self::BELONGS_TO, 'ImpresionesFases', 'idimpresion_fases'),
 			'idimpresionTipo' => array(self::BELONGS_TO, 'ImpresionesTipos', 'idimpresion_tipo'),
 			'idproducto0' => array(self::BELONGS_TO, 'Productos', 'idproducto'),
+			'cotizacionesParcialesDetalles' => array(self::HAS_MANY, 'CotizacionesParcialesDetalle', 'idcotizacion_parcial'),
 		);
 	}
 
@@ -95,9 +93,6 @@ class CotizacionesParciales extends CActiveRecord
 			'idimpresion_tipo' => 'Tipo de impresion',
 			'idimpresion_fases' => 'Fases',
 			'idarchivo_logo' => 'Idarchivo Logo',
-			'cantidad' => 'Cantidad',
-			'importe_producto' => 'Importe Producto',
-			'importe_impresion' => 'Importe Impresion',
 			'tiempo_produccion' => 'Tiempo Produccion',
 			'nota' => 'Nota',
 			'fecha_ingreso' => 'Fecha Ingreso',
@@ -123,9 +118,6 @@ class CotizacionesParciales extends CActiveRecord
 		$criteria->compare('idimpresion_tipo',$this->idimpresion_tipo);
 		$criteria->compare('idimpresion_fases',$this->idimpresion_fases);
 		$criteria->compare('idarchivo_logo',$this->idarchivo_logo);
-		$criteria->compare('cantidad',$this->cantidad);
-		$criteria->compare('importe_producto',$this->importe_producto,true);
-		$criteria->compare('importe_impresion',$this->importe_impresion,true);
 		$criteria->compare('tiempo_produccion',$this->tiempo_produccion,true);
 		$criteria->compare('nota',$this->nota,true);
 		$criteria->compare('fecha_ingreso',$this->fecha_ingreso,true);

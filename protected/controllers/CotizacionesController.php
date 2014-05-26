@@ -28,7 +28,7 @@ class CotizacionesController extends Controller {
         return array(
 
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update','admin', 'delete'),
+                'actions' => array('pdf','create', 'update','admin', 'delete'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -46,21 +46,29 @@ class CotizacionesController extends Controller {
             'model' => $this->loadModel($id),
         ));
     }
-
+    public function actionPdf($id) {
+        $model=$this->loadModel($id);
+        $cliente=Clientes::model()->findByPk($model->idcliente);
+       
+        $html2pdf = Yii::app()->ePdf->HTML2PDF();
+        $html2pdf->WriteHTML($this->renderPartial('pdf', array('model'=>$model,'cliente'=>$cliente), true));
+        $html2pdf->output('etc.pdf',EYiiPdf::OUTPUT_TO_BROWSER);
+        
+    }
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
         $model = new Cotizaciones;
-
+        $model->unsetAttributes();
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Cotizaciones'])) {
             $model->attributes = $_POST['Cotizaciones'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idcotizacion));
+                $this->redirect(array('cotizacionesparciales/admin', 'id' => $model->idcotizacion));
         }
 
         $this->render('create', array(

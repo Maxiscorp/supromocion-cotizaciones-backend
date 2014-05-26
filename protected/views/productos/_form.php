@@ -22,6 +22,11 @@
 <?php echo $form->error($model, 'nombre'); ?>
     </div>
     <div class="row">
+        <?php echo $form->labelEx($model, 'descripcion'); ?>
+<?php echo $form->textField($model, 'descripcion', array('size' => 20, 'maxlength' => 50)); ?>
+<?php echo $form->error($model, 'descripcion'); ?>
+    </div>
+    <div class="row">
             <?php echo $form->labelEx($model, 'idproducto_tipo'); ?>
             <?php
             echo $form->dropDownList($model, 'idproducto_tipo', CHtml::listData(ProductosTipos::model()->findAll(

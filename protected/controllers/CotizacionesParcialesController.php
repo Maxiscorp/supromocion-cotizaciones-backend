@@ -60,29 +60,35 @@ class CotizacionesParcialesController extends Controller {
         if (isset($_POST['CotizacionesParciales'])) {
             $model->attributes = $_POST['CotizacionesParciales'];
             if ($model->save())
-                $this->redirect(array('paso2', 'id' => $model->idcotizacion_parcial));
+                $this->redirect(array('admin', 'id' => $model->idcotizacion));
         }
 
         $this->render('create_paso1', array(
             'model' => $model,
         ));
     }
-    public function actionPaso2($id) {
+    /*public function actionPaso2($id) {
         $model = $this->loadModel($id);
-        $model->scenario="paso2";
+		$modelPrecioUnitario=ProductosPreciosUnitarios::model()->findByAttributes(array('idproducto'=>$model->idproducto,'cantidad'=>$model->cantidad,'activo'=>1));
+        $modelColImpPrecioUnitario=ImpresionesTiposColoresPreciosUnitarios::model()->findByAttributes(array('activo'=>1,'idimpresion_tipo'=>$model->idimpresion_tipo,'idimpresion_color'=>$model->idimpresion_colores));
+		$model->scenario="paso2";
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['CotizacionesParciales'])) {
             $model->attributes = $_POST['CotizacionesParciales'];
             if ($model->save())
-                $this->redirect(array('paso3', 'id' => $model->idcotizacion_parcial));
+                $this->redirect(array('admin', 'id' => $model->idcotizacion));
         }
 
         $this->render('create_paso2', array(
             'model' => $model,
+			'modelPrecioUnitario'=>$modelPrecioUnitario,
+			'modelColImpPrecioUnitario'=>$modelColImpPrecioUnitario,
         ));
     }
+     */
+    
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -111,7 +117,9 @@ class CotizacionesParcialesController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        $this->loadModel($id)->delete();
+        $model=$this->loadModel($id);
+        $model->activo=0;
+        $model->save();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -135,6 +143,7 @@ class CotizacionesParcialesController extends Controller {
         $model = new CotizacionesParciales('search');
         $model->unsetAttributes();  // clear any default values
         $model->idcotizacion=$id;
+        $model->activo=1;
         if (isset($_GET['CotizacionesParciales']))
             $model->attributes = $_GET['CotizacionesParciales'];
 

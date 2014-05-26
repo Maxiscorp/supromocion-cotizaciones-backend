@@ -63,7 +63,7 @@ class ClientesController extends Controller {
         $model = new Clientes('logo');
         $modelAgenteIVA = new ClientesAgentesRetencion;
         $modelAgenteIVA->scenario = "iva";
-        $modelAgenteIVA->activo=0;
+        $modelAgenteIVA->activo = 0;
         $modelAgenteIVA->idagente_retencion = 1;
 
 
@@ -74,7 +74,7 @@ class ClientesController extends Controller {
 
         $modelAgenteGanancias = new ClientesAgentesRetencion;
         $modelAgenteGanancias->scenario = "ganancias";
-        $modelAgenteGanancias->activo=0;
+        $modelAgenteGanancias->activo = 0;
         $modelAgenteGanancias->idagente_retencion = 3;
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
@@ -167,19 +167,81 @@ class ClientesController extends Controller {
         $model = $this->loadModel($id);
         $modelAgenteIVA = ClientesAgentesRetencion::model()->findByAttributes(array('idcliente' => $id, 'idagente_retencion' => 1));
 
+        $modelAgenteIVA->scenario = "iva";
+        if (!$modelAgenteIVA) {
+            $modelAgenteIVA = new ClientesAgentesRetencion;
+            $modelAgenteIVA->scenario = "iva";
+            $modelAgenteIVA->activo = 0;
+            $modelAgenteIVA->idagente_retencion = 1;
+        }
 
         $modelAgenteIIBB = ClientesAgentesRetencion::model()->findByAttributes(array('idcliente' => $id, 'idagente_retencion' => 2));
 
+        $modelAgenteIIBB->scenario = "iibb";
+        if (!$modelAgenteIIBB) {
+
+            $modelAgenteIIBB = new ClientesAgentesRetencion;
+            $modelAgenteIIBB->scenario = "iibb";
+            $modelAgenteIIBB->activo = 0;
+            $modelAgenteIIBB->idagente_retencion = 2;
+        }
 
         $modelAgenteGanancias = ClientesAgentesRetencion::model()->findByAttributes(array('idcliente' => $id, 'idagente_retencion' => 3));
 
+        $modelAgenteGanancias->scenario = "ganancias";
+        if (!$modelAgenteGanancias) {
+
+            $modelAgenteGanancias = new ClientesAgentesRetencion;
+            $modelAgenteGanancias->activo = 0;
+            $modelAgenteGanancias->idagente_retencion = 3;
+        }
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
         if (isset($_POST['Clientes'])) {
             $model->attributes = $_POST['Clientes'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idcliente));
+            if ($model->save()) {
+
+                if (isset($_POST['ClientesAgentesRetencionIVA'])) {
+                    $modelAgenteIVA->attributes = $_POST['ClientesAgentesRetencionIVA'];
+                    $modelAgenteIVA->idcliente = $model->idcliente;
+                    if ($modelAgenteIVA->validate()) {
+                        $modelAgenteIVA->save();
+                    } else {
+                        echo "1";
+                        print_r($modelAgenteIVA->getErrors());
+                    }
+                    $modelAgenteIVA->scenario = "iva";
+                }
+                if (isset($_POST['ClientesAgentesRetencionIIBB'])) {
+                    $modelAgenteIIBB->attributes = $_POST['ClientesAgentesRetencionIIBB'];
+                    $modelAgenteIIBB->idcliente = $model->idcliente;
+                    if ($modelAgenteIIBB->validate()) {
+                        $modelAgenteIIBB->save();
+                    } else {
+                        echo "2";
+                        print_r($modelAgenteIIBB->getErrors());
+                    }
+
+                    $modelAgenteIIBB->scenario = "iibb";
+                }
+                
+                if (isset($_POST['ClientesAgentesRetencionGanancias'])) {
+                    
+                    $modelAgenteGanancias->attributes = $_POST['ClientesAgentesRetencionGanancias'];
+                    
+                    
+                    $modelAgenteGanancias->idcliente = $model->idcliente;
+                    
+                    if ($modelAgenteGanancias->validate()) {
+                        $modelAgenteGanancias->save();
+                    } else {
+                        echo "3";
+                        print_r($modelAgenteGanancias->getErrors());
+                    }
+                    $modelAgenteGanancias->scenario = "ganancias";
+                }
+            }
         }
 
         $this->render('update', array(

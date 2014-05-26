@@ -1,7 +1,7 @@
-RewriteEngine On
-RewriteBase /
+RewriteEngine on
+# if a directory or a file exists, use it directly
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
-php_flag apc.cache_by_default Off
-php_flag apc.enabled Off
+
+# otherwise forward it to index.php
+RewriteRule . index.php

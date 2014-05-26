@@ -125,26 +125,7 @@
                 <?php echo $form->error($model, 'idcotizacion_estado'); ?>
             </td>
         </tr>
-        <tr>
-            <td class="coltitulos">
 
-                <?php echo CHtml::label('Importe total desde', ''); ?>
-            </td> 
-            <td>
-
-                <?php echo $form->textField($model, 'importe_total_desde', array('size' => 15, 'maxlength' => 11)); ?>
-                <?php echo $form->error($model, 'importe_total_desde'); ?>
-            </td>
-            <td class="coltitulos">
-
-                <?php echo CHtml::label('Importe total hasta', ''); ?>
-            </td> 
-            <td>
-
-                <?php echo $form->textField($model, 'importe_total_hasta', array('size' => 15, 'maxlength' => 11)); ?>
-                <?php echo $form->error($model, 'importe_total_hasta'); ?>
-            </td>
-        </tr>
     </table>
 
     <div class="row buttons" >

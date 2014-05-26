@@ -26,7 +26,7 @@
 
 	<div id="header">
 		<div class="logo" style="float:left;" ><?php echo "Sistema de cotizaciones"; ?> </div>
-		<div id="logo" style="float:right;"> <img src="http://backend.supromocion.sysnetic.com.ar/images/logo.gif" /></div>
+		<div id="logo" style="float:right;"> <img src="http://supromocion.sysnetic.com.ar/images/logo.gif" /></div>
 		
 	<div class="clear"></div>
 	</div><!-- header -->

@@ -10,12 +10,7 @@
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'impresiones-tipos-colores-precios-unitarios-form',
         'enableAjaxValidation' => true,
-        'enableClientValidation' => true,
-        'clientOptions' => array(
-            'validateOnSubmit' => true,
-            'validateOnChange' => true,
-            'validateOnType' => true,
-    )));
+));
     echo $form->hiddenField($model, 'idimpresion_tipo', array('value' => $model->idimpresion_tipo));
     echo $form->hiddenField($model, 'idimpresion_color', array('value' => $model->idimpresion_color));
     ?>

@@ -20,23 +20,20 @@
     <?php echo $form->errorSummary($model); ?>
     <table class="tablaform">
 
-        <caption>Por favor ingrese los siguientes datos del cliente:</caption>
         <tr>
             <td class="coltitulos">
 
-                <?php echo $form->labelEx($model, 'importe_producto'); ?>
+                <?php echo $form->labelEx($model, 'idproducto'); ?>
             </td>
             <td>
                 <?php
-                echo $form->dropDownList($model, 'cantidad', CHtml::listData(Productos::model()->findAll(
+                echo $form->dropDownList($model, 'idproducto', CHtml::listData(Productos::model()->findAll(
                                         array(
                                             'condition' => 'activo = true',
                                             'order' => 'idproducto')), 'idproducto', 'nombre'), array('empty' => 'Seleccione'));
                 ?>
                 <?php echo $form->error($model, 'idproducto'); ?>
             </td>
-        </tr>
-        <tr>
             <td class="coltitulos">
 
                 <?php echo $form->labelEx($model, 'idimpresion_colores'); ?>
@@ -65,11 +62,9 @@
                 ?>
                 <?php echo $form->error($model, 'idimpresion_tipo'); ?>
             </td>
-        </tr>
-        <tr>
             <td class="coltitulos">
 
-                <?php echo $form->labelEx($model, 'idimpresion_tipo'); ?>
+                <?php echo $form->labelEx($model, 'idimpresion_fases'); ?>
             </td>
             <td>
                 <?php
@@ -81,16 +76,7 @@
                 <?php echo $form->error($model, 'idimpresion_fases'); ?>
             </td>
         </tr>
-        <tr>
-            <td class="coltitulos">
 
-                <?php echo $form->labelEx($model, 'cantidad'); ?>
-            </td>
-            <td>
-                <?php echo $form->textField($model, 'cantidad', array('size' => 20, 'maxlength' => 150)); ?>
-                <?php echo $form->error($model, 'cantidad'); ?>
-            </td>
-        </tr>
         <tr>
             <td colspan="4">
 

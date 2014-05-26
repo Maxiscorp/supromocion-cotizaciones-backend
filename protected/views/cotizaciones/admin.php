@@ -1,7 +1,6 @@
 <?php
 /* @var $this CotizacionesController */
 /* @var $model Cotizaciones */
-
 echo CHtml::link('Nueva cotizacion', $this->createAbsoluteUrl('cotizaciones/create'));
 ?>
 
@@ -26,11 +25,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'value' => '$data->idcliente0->razon_social',
         ),     
         array(
-            'header' => 'Importe',
-            'type' => 'raw',
-            'value' => '$data->importeSum',
-        ),
-        array(
             'name' => 'idmedio_pago',
             'header' => 'Medio Pago',
             'type' => 'raw',
@@ -54,18 +48,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'type' => 'raw',
             'value' => '$data->idcotizacionEstado->descripcion',
         ),
-        /*
-          'fecha_ingreso',
-          'fecha_vencimiento',
-          'fecha_recontacto',
-          'fecha_recontacto_recordatorio',
-          'recontactar',
-          'condiciones_contratacion',
-          'observaciones',
-          'activo',
-         */
         array(
             'class' => 'CButtonColumn',
+            'template' => '{continuar}',
+           
+            'buttons' => array(
+                
+                'continuar' => array(
+                    'label' => 'Agregar cotizaciones parciales y/o continuar',
+                    'imageUrl' => $this->createUrl('../../images/silk/pencil_add.png'),
+                    'url' => '$this->grid->controller->createUrl("cotizacionesparciales/admin/$data->idcotizacion")',
+                ),
+            )
         ),
     ),
 ));

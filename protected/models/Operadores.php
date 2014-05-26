@@ -140,7 +140,7 @@ class Operadores extends CActiveRecord {
     }
 
     public function beforeSave() {
-        if ($this->scenario == "actualizar") {
+        if ($this->scenario == "actualizar" || $this->scenario == "password" ) {
 
             $this->password = hash('sha512', $this->password);
         }
