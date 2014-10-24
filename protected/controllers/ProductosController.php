@@ -222,7 +222,7 @@ class ProductosController extends Controller {
         if (isset($_POST['ProductosPreciosUnitarios'])) {
             $modelPrecioUnitario->attributes = $_POST['ProductosPreciosUnitarios'];
             $existe = ProductosPreciosUnitarios::model()->findAllByAttributes(
-                    array('activo' => 1, 'idproducto' => $id, 'cantidad' => $modelPrecioUnitario->cantidad));
+                    array('activo' => true, 'idproducto' => $id, 'cantidad' => $modelPrecioUnitario->cantidad));
 
 
             if (sizeof($existe) == 0) {
@@ -269,7 +269,7 @@ class ProductosController extends Controller {
         $modelProductosTiposMateriales = ProductosTiposMateriales::model()->findAllByAttributes(array('activo' => 1, 'idproducto_tipo' => $model->idproducto_tipo), array('condition' => 'idmaterial not in(select idmaterial from productos_materiales where activo=1 and idproducto=:idproducto)', 'params' => array(':idproducto' => $id)));
         $modelProductosMateriales = new ProductosMateriales('search');
         $modelProductosMateriales->idproducto = $id;
-        $modelProductosMateriales->activo = 1;
+        $modelProductosMateriales->activo = true;
         $this->render('paso_final', array(
             'model' => $model,
             'modelProductosTiposMateriales' => $modelProductosTiposMateriales,
@@ -285,7 +285,7 @@ class ProductosController extends Controller {
         if (isset($_POST['ProductosMateriales'])) {
             $modelProductoMaterial->attributes = $_POST['ProductosMateriales'];
             $modelProductoMaterial->idproducto = $id;
-            $modelProductoMaterial->activo = 1;
+            $modelProductoMaterial->activo = true;
             if ($modelProductoMaterial->validate()) {
                 $modelProductoMaterial->save();
 
@@ -293,10 +293,10 @@ class ProductosController extends Controller {
                 $modelProductoMaterial->unsetAttributes();
             }
         }
-        $modelProductosTiposMateriales = ProductosTiposMateriales::model()->findAllByAttributes(array('activo' => 1, 'idproducto_tipo' => $model->idproducto_tipo), array('condition' => 'idmaterial not in(select idmaterial from productos_materiales where activo=1 and idproducto=:idproducto)', 'params' => array(':idproducto' => $id)));
+        $modelProductosTiposMateriales = ProductosTiposMateriales::model()->findAllByAttributes(array('activo' => true, 'idproducto_tipo' => $model->idproducto_tipo), array('condition' => 'idmaterial not in(select idmaterial from productos_materiales where activo=true and idproducto=:idproducto)', 'params' => array(':idproducto' => $id)));
         $modelProductosMateriales = new ProductosMateriales('search');
         $modelProductosMateriales->idproducto = $id;
-        $modelProductosMateriales->activo = 1;
+        $modelProductosMateriales->activo = true;
         $this->render('agregar_materiales', array(
             'model' => $model,
             'modelProductosTiposMateriales' => $modelProductosTiposMateriales,

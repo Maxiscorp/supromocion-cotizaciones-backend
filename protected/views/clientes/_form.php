@@ -11,7 +11,6 @@
         'id' => 'clientes-form',
         'enableAjaxValidation' => false,
         
-    'htmlOptions' => array('enctype' => 'multipart/form-data')
     ));
     ?>    
 
@@ -124,10 +123,10 @@
         </tr>
 
         <tr>
-            <td class="coltitulos"><?php echo $form->labelEx($model, 'idarchivo_logo'); ?></td>
+            <td class="coltitulos"><?php echo $form->labelEx($model, 'domicilio'); ?></td>
             <td>
-                <?php echo $form->fileField($model, 'logo'); ?>
-                <div class="errores"><?php echo $form->error($model, 'logo'); ?></div>
+                <?php echo $form->textField($model, 'domicilio', array('size' => 20)); ?>
+                <div class="errores"><?php echo $form->error($model, 'domicilio'); ?></div>
             </td>
             <td class="coltitulos"><?php echo $form->labelEx($model, 'envia_mails_seguimiento'); ?></td>
             <td>
@@ -137,10 +136,6 @@
 
         </tr>
     </table>
-    <ul style="list-style-type:square; padding-left:1em">
-        <li>Solo se aceptan como respaldo archivos con las extensiones: gif, jpg, jpeg, png, pdf</li>
-        <li>El tamaño máximo permitido de un archivo es de 3 MB</li>
-    </ul>
     <table class="tablaagentesretencion">
         <caption>Seleccione los agentes de retencion correspondientes</caption>
         <tr>

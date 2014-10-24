@@ -59,6 +59,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
     ),
 ));
-echo CHtml::link('Finalizar cotizacion', $this->createAbsoluteUrl('cotizaciones/pdf', array('id' => $model->idcotizacion)));
+echo CHtml::link('Finalizar cotizacion', $this->createAbsoluteUrl('cotizaciones/finalizar', array('id' => $model->idcotizacion)));
 
 ?>

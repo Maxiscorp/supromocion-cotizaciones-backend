@@ -7,7 +7,7 @@
  * @property integer $idproducto_impresion_tipo
  * @property integer $idproducto
  * @property integer $idimpresion_tipo
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
  * @property ImpresionesTipos $idimpresionTipo

@@ -27,7 +27,7 @@
  * @property Operadores $idoperador0
  * @property CotizacionesNotas[] $cotizacionesNotases
  * @property CotizacionesParciales[] $cotizacionesParciales
- * @property OrdenesProduccion[] $ordenesProduccions
+ * @property OrdenesProduccionCotizaciones[] $ordenesProduccions
  */
 class Cotizaciones extends CActiveRecord {
 
@@ -76,7 +76,7 @@ class Cotizaciones extends CActiveRecord {
             'idoperador0' => array(self::BELONGS_TO, 'Operadores', 'idoperador'),
             'cotizacionesNotases' => array(self::HAS_MANY, 'CotizacionesNotas', 'idcotizacion'),
             'cotizacionesParciales' => array(self::HAS_MANY, 'CotizacionesParciales', 'idcotizacion'),
-            'ordenesProduccions' => array(self::HAS_MANY, 'OrdenesProduccion', 'idcotizacion'),
+            'ordenesProduccions' => array(self::HAS_MANY, 'OrdenesProduccionCotizaciones', 'idcotizacion'),
           
         );
     }
@@ -127,7 +127,10 @@ class Cotizaciones extends CActiveRecord {
         $criteria->compare('idoperador', $this->idoperador);
         $criteria->compare('idcotizacion_estado', $this->idcotizacion_estado);
         $criteria->compare('idmedio_pago', $this->idmedio_pago);
-        $criteria->compare('fecha_ingreso', $this->fecha_ingreso, true);
+		if($this->fecha_cotizacion_desde!="" && $this->fecha_cotizacion_hasta!=""){
+			
+                $criteria->addBetweenCondition('fecha_ingreso', $this->fecha_cotizacion_desde, $this->fecha_cotizacion_hasta);
+		}		
         $criteria->compare('fecha_vencimiento', $this->fecha_vencimiento, true);
         $criteria->compare('fecha_recontacto', $this->fecha_recontacto, true);
         $criteria->compare('fecha_recontacto_recordatorio', $this->fecha_recontacto_recordatorio, true);

@@ -10,19 +10,18 @@
  * @property string $nombre_comercial
  * @property string $contacto
  * @property string $email
+ * @property string $domicilio
  * @property string $telefono
  * @property integer $envia_mails_seguimiento
  * @property string $localidad
  * @property string $codigo_postal
  * @property string $idcondicion_iva
- * @property integer $idarchivo_logo
  * @property string $idprovincia
  * @property string $fecha_alta
  * @property string $fecha_ultima_cotizacion_aprobada
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
- * @property Archivos $idarchivoLogo
  * @property CondicionesIva $idcondicionIva
  * @property Provincias $idprovincia0
  * @property ClientesAgentesRetencion[] $clientesAgentesRetencions
@@ -42,13 +41,11 @@ class Clientes extends CActiveRecord {
     /**
      * @return array validation rules for model attributes.
      */
-    public $logo;
 
     public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('logo', 'file', 'types' => 'jpg, gif, png,pdf,tiff,jpeg,bmp', 'allowEmpty' => true, 'maxSize' => 2048000, 'on' => 'logo'),
             array('envia_mails_seguimiento, activo,idcondicion_iva', 'numerical', 'integerOnly' => true),
             array('cuit, idprovincia', 'length', 'max' => 11),
             array('idcondicion_iva', 'required','on'=>'logo'),
@@ -56,11 +53,11 @@ class Clientes extends CActiveRecord {
             
             array('razon_social, nombre_comercial, contacto, email, telefono, localidad', 'length', 'max' => 100),
             array('codigo_postal', 'length', 'max' => 20),
-            array('idcondicion_iva,idarchivo_logo', 'length', 'max' => 10),
+            array('idcondicion_iva', 'length', 'max' => 10),
             array('fecha_alta, fecha_ultima_cotizacion_aprobada', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('logo, idcliente, cuit, razon_social, nombre_comercial, contacto, email, telefono, envia_mails_seguimiento, localidad, codigo_postal, idcondicion_iva, idarchivo_logo, idprovincia, fecha_alta, fecha_ultima_cotizacion_aprobada, activo', 'safe', 'on' => 'search'),
+            array('domicilio, idcliente, cuit, razon_social, nombre_comercial, contacto, email, telefono, envia_mails_seguimiento, localidad, codigo_postal, idcondicion_iva, idprovincia, fecha_alta, fecha_ultima_cotizacion_aprobada, activo', 'safe', 'on' => 'search'),
         );
     }
 
@@ -71,7 +68,6 @@ class Clientes extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'idarchivoLogo' => array(self::BELONGS_TO, 'Archivos', 'idarchivo_logo'),
             'idcondicionIva' => array(self::BELONGS_TO, 'CondicionesIva', 'idcondicion_iva'),
             'idprovincia0' => array(self::BELONGS_TO, 'Provincias', 'idprovincia'),
             'clientesAgentesRetencions' => array(self::HAS_MANY, 'ClientesAgentesRetencion', 'idcliente'),
@@ -88,6 +84,7 @@ class Clientes extends CActiveRecord {
                 return array(
                     'idcliente' => 'Nro Cliente',
                     'cuit' => 'Cuit',
+                    'domicilio' => 'Domicilio',
                     'razon_social' => 'Razon Social',
                     'nombre_comercial' => 'Nombre Comercial',
                     'contacto' => 'Contacto',
@@ -97,7 +94,6 @@ class Clientes extends CActiveRecord {
                     'localidad' => 'Localidad',
                     'codigo_postal' => 'Codigo Postal',
                     'idcondicion_iva' => 'Condicion de IVA',
-                    'idarchivo_logo' => 'Logo',
                     'idprovincia' => 'Provincia',
                     'fecha_alta' => 'Fecha Alta',
                     'fecha_ultima_cotizacion_aprobada' => 'Fecha Ultima Cotizacion Aprobada',
@@ -132,12 +128,12 @@ class Clientes extends CActiveRecord {
         $criteria->compare('envia_mails_seguimiento', $this->envia_mails_seguimiento);
         $criteria->compare('localidad', $this->localidad, true);
         $criteria->compare('codigo_postal', $this->codigo_postal, true);
+        $criteria->compare('domicilio', $this->domicilio, true);
         $criteria->compare('idcondicion_iva', $this->idcondicion_iva, true);
-        $criteria->compare('idarchivo_logo', $this->idarchivo_logo);
         $criteria->compare('idprovincia', $this->idprovincia, true);
         $criteria->compare('fecha_alta', $this->fecha_alta, true);
         $criteria->compare('fecha_ultima_cotizacion_aprobada', $this->fecha_ultima_cotizacion_aprobada, true);
-        $criteria->compare('activo', 1);
+        $criteria->compare('activo', true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

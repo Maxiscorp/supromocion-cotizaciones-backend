@@ -11,7 +11,7 @@
  * @property string $password
  * @property string $email
  * @property integer $idoperador_tipo
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
  * @property Cotizaciones[] $cotizaciones

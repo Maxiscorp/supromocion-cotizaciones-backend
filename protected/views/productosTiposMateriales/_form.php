@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerScript(
         <?php
         echo $form->dropDownList($model, 'idmaterial', CHtml::listData(Materiales::model()->findAll(
                                 array(
-                                    'condition' => 'activo = 1 and idmaterial not in(select idmaterial from productos_tipos_materiales where activo=1 and idproducto_tipo='.$model->idproducto_tipo.')',
+                                    'condition' => 'activo = true and idmaterial not in(select idmaterial from productos_tipos_materiales where activo=true and idproducto_tipo='.$model->idproducto_tipo.')',
                                     'order' => 'descripcion')), 'idmaterial', 'descripcion'), array());
         ?>
 <?php echo $form->error($model, 'idprovincia'); ?>

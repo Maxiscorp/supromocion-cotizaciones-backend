@@ -50,15 +50,23 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         array(
             'class' => 'CButtonColumn',
-            'template' => '{continuar}',
+            'template' => '{continuar}{pdf}',
            
             'buttons' => array(
                 
                 'continuar' => array(
                     'label' => 'Agregar cotizaciones parciales y/o continuar',
-                    'imageUrl' => $this->createUrl('../../images/silk/pencil_add.png'),
+                    'imageUrl' => $this->createUrl('../../images/silk/pencil_add.png'),					
+					'visible'=>'$data->idcotizacion_estado==3',
                     'url' => '$this->grid->controller->createUrl("cotizacionesparciales/admin/$data->idcotizacion")',
-                ),
+                ),				
+				'pdf' => array(                    
+					'label' => 'Ver PDF',					
+					'options'=>array("target"=>"_blank"),                    
+					'url' => '$this->grid->controller->createUrl("cotizaciones/pdf/$data->idcotizacion")',					
+					'visible'=>'$data->idcotizacion_estado==2',                    
+					'imageUrl' => $this->createUrl('../../images/silk/page_white_acrobat.png'),                
+				),
             )
         ),
     ),

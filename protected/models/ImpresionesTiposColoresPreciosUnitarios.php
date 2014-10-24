@@ -10,7 +10,7 @@
  * @property integer $cantidad
  * @property string $precio_unitario
  * @property string $fecha_ingreso
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
  * @property ImpresionesColores $idimpresionColor

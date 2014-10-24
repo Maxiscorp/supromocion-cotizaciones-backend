@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Create Clientes</h1>
-<?php echo $this->renderPartial('_form', array('model'=>$model,'modelArchivo'=>$modelArchivo,
+<?php echo $this->renderPartial('_form', array('model'=>$model,
             'modelAgenteGanancias' => $modelAgenteGanancias,
             'modelAgenteIIBB' => $modelAgenteIIBB,
             'modelAgenteIVA' => $modelAgenteIVA)); ?>

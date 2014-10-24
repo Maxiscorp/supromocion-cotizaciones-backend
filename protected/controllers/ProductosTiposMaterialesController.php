@@ -127,7 +127,7 @@ class ProductosTiposMaterialesController extends Controller {
         $model = new ProductosTiposMateriales('search');
         $model->unsetAttributes();
         $model->idproducto_tipo = $id;
-        $model->activo = 1;
+        $model->activo = true;
         if (isset($_POST['ProductosTiposMateriales'])) {
             $modeltosave = new ProductosTiposMateriales;
             $modeltosave->attributes = $_POST['ProductosTiposMateriales'];

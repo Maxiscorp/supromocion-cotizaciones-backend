@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'condiciones_iva':
  * @property string $idcondicion_iva
  * @property string $descripcion
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
  * @property Clientes[] $clientes

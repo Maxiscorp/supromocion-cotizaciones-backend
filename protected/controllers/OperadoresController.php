@@ -7,7 +7,7 @@ class OperadoresController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/abms';
-    public $paginamenutabstop='MisDatos';
+    public $paginamenutabstop = 'MisDatos';
     public $paginaactual = 'Operadores';
 
     /**
@@ -57,7 +57,7 @@ class OperadoresController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $this->paginamenutabstop="ABMs";
+        $this->paginamenutabstop = "ABMs";
         $model = new Operadores;
         $model->unsetAttributes();
         // Uncomment the following line if AJAX validation is needed
@@ -87,7 +87,7 @@ class OperadoresController extends Controller {
     }
 
     public function actionAgregarPorcentajes($id) {
-        $this->paginamenutabstop="ABMs";
+        $this->paginamenutabstop = "ABMs";
         $model = $this->loadModel($id);
         $modelOperadoresPorcentajes = new OperadoresPorcentajes('search');
         $modelOperadoresPorcentajes->unsetAttributes();
@@ -101,21 +101,22 @@ class OperadoresController extends Controller {
         if (isset($_POST['OperadoresPorcentajes'])) {
             $modelOperadorPorcentaje->attributes = $_POST['OperadoresPorcentajes'];
             $existe = OperadoresPorcentajes::model()->findAllByAttributes(
-                    array('activo' => 1, 'idoperador' => $id), array('condition' => ':desde between importe_desde and importe_hasta and :hasta between importe_desde and importe_hasta',
+                    array('activo' => true, 'idoperador' => $id), array('condition' => ':desde between importe_desde and importe_hasta and :hasta between importe_desde and importe_hasta',
                 'params' =>
                 array(':desde' => $modelOperadorPorcentaje->importe_desde, ':hasta' => $modelOperadorPorcentaje->importe_hasta)));
 
 
-            if (sizeof($existe) == 0) {
+            if ($modelOperadorPorcentaje->validate()) {
 
 
 
-                $modelOperadorPorcentaje->activo = 1;
-                $modelOperadorPorcentaje->idoperador = $id;
-                if ($modelOperadorPorcentaje->validate()) {
+                if (sizeof($existe) == 0) {
+                    $modelOperadorPorcentaje->activo = true;
+                    $modelOperadorPorcentaje->idoperador = $id;
                     $modelOperadorPorcentaje->save();
 
                     Yii::app()->user->setFlash('success', "el rango fue registrado con éxito! ");
+                    $this->redirect(array("agregarporcentajes", 'id' => $id));
                     $modelOperadorPorcentaje->unsetAttributes();
                     $modelOperadorPorcentaje->scenario = "insert";
                 }
@@ -141,8 +142,8 @@ class OperadoresController extends Controller {
     public function actionUpdate($success = "ERROR") {
 
         $this->layout = "misdatos";
-        
-        $this->paginamenutabstop="MisDatos";
+
+        $this->paginamenutabstop = "MisDatos";
         $this->paginaactual = "Misdatos";
         if (isset($success)) {
 
@@ -170,8 +171,8 @@ class OperadoresController extends Controller {
 
     public function actionPassword($success = "ERROR") {
         $this->layout = "misdatos";
-        
-        $this->paginamenutabstop="MisDatos";
+
+        $this->paginamenutabstop = "MisDatos";
         $this->paginaactual = "Password";
         if (isset($success)) {
 
@@ -203,7 +204,7 @@ class OperadoresController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        
+
         $model = $this->loadModel($id);
         $model->activo = 0;
         $model->save();
@@ -213,8 +214,8 @@ class OperadoresController extends Controller {
     }
 
     public function actionDeletePorcentaje($id) {
-        
-        $this->paginamenutabstop="ABMs";
+
+        $this->paginamenutabstop = "ABMs";
         $model = OperadoresPorcentajes::model()->findByPk($id);
         $model->activo = 0;
         $model->save();
@@ -246,8 +247,8 @@ class OperadoresController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        
-        $this->paginamenutabstop="ABMs";
+
+        $this->paginamenutabstop = "ABMs";
         $model = new Operadores('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Operadores']))

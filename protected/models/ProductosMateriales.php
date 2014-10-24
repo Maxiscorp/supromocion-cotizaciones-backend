@@ -8,7 +8,7 @@
  * @property integer $idproducto
  * @property integer $idmaterial
  * @property string $fecha_alta
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
  * @property Materiales $idmaterial0
@@ -32,7 +32,7 @@ class ProductosMateriales extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idproducto, idmaterial, activo', 'numerical', 'integerOnly'=>true),
+			array('idproducto, idmaterial', 'numerical', 'integerOnly'=>true),
 			array('fecha_alta', 'safe'),
                         array('idmaterial','required','on'=>'insert'),
 			// The following rule is used by search().
@@ -90,7 +90,7 @@ class ProductosMateriales extends CActiveRecord
 		$criteria->compare('idproducto',$this->idproducto);
 		$criteria->compare('idmaterial',$this->idmaterial);
 		$criteria->compare('fecha_alta',$this->fecha_alta,true);
-		$criteria->compare('activo',$this->activo);
+		$criteria->compare('activo',true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

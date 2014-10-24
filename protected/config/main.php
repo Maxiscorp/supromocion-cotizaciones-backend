@@ -26,7 +26,7 @@ return array(
             'class' => 'system.gii.GiiModule',
             'password' => 'doraemon7d9',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters' => array('127.0.0.1', '::1', '192.168.2.40', '192.168.2.41', '192.168.2.42', '200.69.30.195'),
+            'ipFilters' => array('127.0.0.1', '::1', '192.168.2.40', '192.168.2.41', '192.168.2.42', '200.69.30.195','190.210.83.133'),
         ),
     ),
     'behaviors' => array(
@@ -123,10 +123,10 @@ return array(
          */
 // uncomment the following to use a MySQL database
         'db' => array(
-            'connectionString' => 'mysql:host=sysnetic.com.ar;dbname=sysne621_supromocion;port=3306;',
+            'connectionString' => 'pgsql:host=192.168.100.4;dbname=supromocion;port=5432;',
             //'emulatePrepare' => true,
-            'username' => 'sysne621_promo',
-            'password' => 'mundial2006',
+            'username' => 'rootadmin',
+            'password' => 'adminPgsql',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(
@@ -141,9 +141,9 @@ return array(
                     'levels' => 'error, warning',
                 ),
                 // uncomment the following to show log messages on web pages
-                array(
+                /*array(
                     'class' => 'CWebLogRoute',
-                ),
+                ),*/
             ),
         ),
     ),

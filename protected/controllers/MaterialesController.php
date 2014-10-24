@@ -63,7 +63,7 @@ class MaterialesController extends Controller {
 
         if (isset($_POST['Materiales'])) {
             $model->attributes = $_POST['Materiales'];
-            $model->activo = 1;
+            $model->activo = true;
             if ($model->save())
                 $this->redirect(array('admin'));
         }

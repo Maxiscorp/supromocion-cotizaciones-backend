@@ -8,7 +8,7 @@
  * @property string $idcliente
  * @property string $idagente_retencion
  * @property string $fecha_ingreso
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
  * @property AgentesRetencion $idagenteRetencion

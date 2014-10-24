@@ -35,7 +35,8 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				/*array('label'=>'Inicio', 'url'=>array('/site/index'),'visible'=>!Yii::app()->user->isGuest),*/
-				array('label'=>'Cotizaciones', 'url'=>array('/cotizaciones/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="Cotizaciones"?true:false),
+				array('label'=>'Cotizaciones', 'url'=>array('/cotizaciones/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="Cotizaciones"?true:false),				
+				array('label'=>'Ordenes de produccion', 'url'=>array('/ordenesproduccion/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="OrdenesProduccion"?true:false),
 				array('label'=>'ABMs', 'url'=>array('/clientes/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="ABMs"?true:false),
 				array('label'=>'Mis Datos', 'url'=>array('/operadores/update'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="MisDatos"?true:false),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

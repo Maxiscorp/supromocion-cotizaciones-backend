@@ -10,7 +10,7 @@
  * @property string $porcentaje
  * @property integer $idoperador
  * @property string $fecha_mod
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
  * @property Operadores $idoperador0

@@ -12,7 +12,7 @@
  * @property string $descripcion
  * @property string $codigo_producto_proveedor
  * @property string $fecha_alta
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
  * @property CotizacionesParciales[] $cotizacionesParciales
@@ -39,7 +39,7 @@ class Productos extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('idproducto_tipo, idmoneda, activo', 'numerical', 'integerOnly' => true),
+            array('idproducto_tipo, idmoneda', 'numerical', 'integerOnly' => true),
             array('codigo_producto_interno, codigo_producto_proveedor', 'length', 'max' => 50),
             array('fecha_alta,nombre,descripcion', 'safe'),
             // The following rule is used by search().
@@ -64,7 +64,7 @@ class Productos extends CActiveRecord {
         'productosPreciosUnitarioses' => array(self::HAS_MANY, 'ProductosPreciosUnitarios', 'idproducto'),
         'CantidadImagenes' => array(self::STAT, 'ProductosImagenes', 'idproducto',
         'select' => 'count(idproducto)',
-        'condition'=>'activo=1'),
+        'condition'=>'activo=true'),
         );
     }
 

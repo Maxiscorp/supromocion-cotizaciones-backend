@@ -78,20 +78,11 @@ class ClientesController extends Controller {
         $modelAgenteGanancias->idagente_retencion = 3;
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
-        $modelArchivo = new Archivos;
-        $modelArchivo->scenario = 'logo';
         if (isset($_POST['Clientes'])) {
             $model->attributes = $_POST['Clientes'];
 
-            $model->logo = CUploadedFile::getInstance($model, 'logo');
 
 
-            if ($model->logo != "") {
-                $modelArchivo = $this->procesarLogo($model);
-                if ($modelArchivo->idarchivo != "") {
-                    $model->idarchivo_logo = $modelArchivo->idarchivo;
-                }
-            }
 
             if ($model->save()) {
                 if (isset($_POST['ClientesAgentesRetencionIVA'])) {
@@ -130,31 +121,14 @@ class ClientesController extends Controller {
         }
 
         $this->render('create', array(
-            'model' => $model, 'modelArchivo' => $modelArchivo,
+            'model' => $model, 
             'modelAgenteGanancias' => $modelAgenteGanancias,
             'modelAgenteIIBB' => $modelAgenteIIBB,
             'modelAgenteIVA' => $modelAgenteIVA,
         ));
     }
 
-    public function procesarLogo
-    ($model) {
 
-        $modelArchivo = new Archivos('logo');
-
-        $ruta = Yii::app()->params['upload_path_base'] . "logos" . date('/Y/m/d/');
-        if (!file_exists($ruta)) {
-            mkdir($ruta, 0755, true);
-        }
-        $archivo = $ruta . $model->logo;
-        $ruta_archivo = "/logos" . date('/Y/m/d/') . $model->logo;
-        $modelArchivo->ruta_archivo = $ruta_archivo;
-        $modelArchivo->nombre_archivo = $model->logo;
-        $model->logo->saveAs($archivo);
-        $modelArchivo->save();
-
-        return $modelArchivo;
-    }
 
     /**
      * Updates a particular model.
@@ -285,7 +259,7 @@ class ClientesController extends Controller {
 
             $criteria = new CDbCriteria;
             $criteria->alias = "cli";
-            $criteria->condition = "cli.razon_social like '%" . $_GET['term'] . "%' or cli.cuit like '%" . $_GET['term'] . "%' and activo=1";
+            $criteria->condition = "(cli.razon_social like '%" . $_GET['term'] . "%' or cli.cuit like '%" . $_GET['term'] . "%') and activo=1";
             $criteria->order = 'razon_social';
             $criteria->limit = 30;
 

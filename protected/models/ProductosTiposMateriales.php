@@ -8,7 +8,7 @@
  * @property integer $idproducto_tipo
  * @property integer $idmaterial
  * @property string $fecha_ingreso
- * @property integer $activo
+ * @property boolean $activo
  *
  * The followings are the available model relations:
  * @property Materiales $idmaterial0

@@ -7,7 +7,6 @@
  * @property integer $idorden_produccion
  * @property string $idcliente
  * @property string $comision_operador
- * @property integer $idcotizacion
  * @property integer $idorden_estado
  * @property string $porcentaje_facturado
  * @property string $entrega_idprovincia
@@ -18,15 +17,26 @@
  *
  * The followings are the available model relations:
  * @property Clientes $idcliente0
- * @property Cotizaciones $idcotizacion0
  * @property OrdenesEstados $idordenEstado
  * @property Provincias $entregaIdprovincia
+ * @property OrdenesProduccionCotizaciones[] $ordenesProduccionCotizaciones
  */
 class OrdenesProduccion extends CActiveRecord
 {
 	/**
+	 * Returns the static model of the specified AR class.
+	 * @param string $className active record class name.
+	 * @return OrdenesProduccion the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
+    public $razon_social;
 	public function tableName()
 	{
 		return 'ordenes_produccion';
@@ -40,7 +50,7 @@ class OrdenesProduccion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idcotizacion, idorden_estado, activo', 'numerical', 'integerOnly'=>true),
+			array('idorden_estado, activo', 'numerical', 'integerOnly'=>true),
 			array('idcliente', 'length', 'max'=>11),
 			array('comision_operador, porcentaje_facturado', 'length', 'max'=>3),
 			array('entrega_idprovincia', 'length', 'max'=>10),
@@ -48,8 +58,8 @@ class OrdenesProduccion extends CActiveRecord
 			array('entrega_codigo_postal', 'length', 'max'=>50),
 			array('fecha_ingreso', 'safe'),
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('idorden_produccion, idcliente, comision_operador, idcotizacion, idorden_estado, porcentaje_facturado, entrega_idprovincia, entrega_localidad, entrega_codigo_postal, fecha_ingreso, activo', 'safe', 'on'=>'search'),
+			// Please remove those attributes that should not be searched.
+			array('idorden_produccion, idcliente, comision_operador, idorden_estado, porcentaje_facturado, entrega_idprovincia, entrega_localidad, entrega_codigo_postal, fecha_ingreso, activo', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,9 +72,9 @@ class OrdenesProduccion extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'idcliente0' => array(self::BELONGS_TO, 'Clientes', 'idcliente'),
-			'idcotizacion0' => array(self::BELONGS_TO, 'Cotizaciones', 'idcotizacion'),
 			'idordenEstado' => array(self::BELONGS_TO, 'OrdenesEstados', 'idorden_estado'),
 			'entregaIdprovincia' => array(self::BELONGS_TO, 'Provincias', 'entrega_idprovincia'),
+			'ordenesProduccionCotizaciones' => array(self::HAS_MANY, 'OrdenesProduccionCotizaciones', 'idorden_produccion'),
 		);
 	}
 
@@ -75,14 +85,13 @@ class OrdenesProduccion extends CActiveRecord
 	{
 		return array(
 			'idorden_produccion' => 'Idorden Produccion',
-			'idcliente' => 'Idcliente',
+			'idcliente' => 'Cliente',
 			'comision_operador' => 'Comision Operador',
-			'idcotizacion' => 'Idcotizacion',
 			'idorden_estado' => 'Idorden Estado',
 			'porcentaje_facturado' => 'Porcentaje Facturado',
-			'entrega_idprovincia' => 'Entrega Idprovincia',
-			'entrega_localidad' => 'Entrega Localidad',
-			'entrega_codigo_postal' => 'Entrega Codigo Postal',
+			'entrega_idprovincia' => 'Provincia',
+			'entrega_localidad' => 'Localidad',
+			'entrega_codigo_postal' => 'Codigo Postal',
 			'fecha_ingreso' => 'Fecha Ingreso',
 			'activo' => 'Activo',
 		);
@@ -90,26 +99,18 @@ class OrdenesProduccion extends CActiveRecord
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('idorden_produccion',$this->idorden_produccion);
 		$criteria->compare('idcliente',$this->idcliente,true);
 		$criteria->compare('comision_operador',$this->comision_operador,true);
-		$criteria->compare('idcotizacion',$this->idcotizacion);
 		$criteria->compare('idorden_estado',$this->idorden_estado);
 		$criteria->compare('porcentaje_facturado',$this->porcentaje_facturado,true);
 		$criteria->compare('entrega_idprovincia',$this->entrega_idprovincia,true);
@@ -121,16 +122,5 @@ class OrdenesProduccion extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return OrdenesProduccion the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
 	}
 }

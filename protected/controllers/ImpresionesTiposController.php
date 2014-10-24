@@ -116,7 +116,7 @@ class ImpresionesTiposController extends Controller {
         if (isset($_POST['ImpresionesTipos'])) {
             $model->attributes = $_POST['ImpresionesTipos'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idimpresion_tipo));
+                $this->redirect(array('admin'));
         }
 
         $this->render('update', array(
