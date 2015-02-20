@@ -1,0 +1,135 @@
+.grid-view
+{
+    padding: 15px 0;
+}
+
+.grid-view table.items
+{
+    background: white;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px #D0E3EF solid;
+}
+
+.grid-view table.items th, .grid-view table.items td
+{
+    font-size: 0.9em;
+    border: 1px white solid;
+    padding: 0.3em;
+}
+
+.grid-view table.items th
+{
+    color: white;
+    background-color: #FF6600;
+    text-align: center;
+}
+.grid-view table.button-column td a {
+    margin-left: 0.6em;
+}
+div .tabs_izquierda{
+    width:100%;
+    margin:0;
+    border-top:0;
+    border-left:0;
+    border-bottom:0;
+    position:relative;
+}
+div .tabs_izquierda div.menu{
+    float:left;
+    border-bottom:0;
+    padding:0;
+    margin:0;
+    vertical-align:top;
+    width:140px; 
+}
+div .tabs_izquierda div.datos{
+    float:left;
+    padding:1em;
+    border:1px solid grey;
+    position:relative;	
+    vertical-align:top;
+    width:781px;
+}
+div .tabs_izquierda div.menu ul.listaopciones{
+    list-style-type: none;
+    width:140px;
+    padding:0;
+    margin:0;
+
+}
+div .tabs_izquierda div.menu ul.listaopciones li{
+    background-color:#FFCC99;
+    border-bottom:1px solid grey;
+    border-left:1px solid grey;
+    border-right:1px solid grey;
+    margin-bottom:0;
+    font-weight:bold;
+    position:relative;
+    left:1px;
+}
+div .tabs_izquierda div.menu ul.listaopciones li:first-child{
+    border-top:1px solid grey;
+}
+div .tabs_izquierda div.menu ul.listaopciones li:hover{
+    background-color:#A0C8E6;
+}
+div .tabs_izquierda div.menu ul.listaopciones li.selected{
+    background-color:white;
+    border-right:0;
+    position:relative;
+    left:1px;
+    z-index: 2;
+}
+div .tabs_izquierda div.menu ul.listaopciones a{
+    display:block;
+    padding:1em 0.5em;
+    text-decoration:none;
+    color:black;
+}
+div .tabs_izquierda div.menu ul.listaopciones a img{
+    vertical-align:middle;
+}
+
+.tablaform{
+    background-color: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    margin-bottom: 1em;
+    padding: 0;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.tablaagentesretencion{
+    background-color: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    margin-bottom: 1em;
+    margin: auto;
+    padding: 0;
+    width: 50%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.tablaagentesretencion tr td {
+    border-bottom: 1px solid #AAAAAA;
+    color: black;
+    /*padding: 0.1em 1em;*/
+    text-align: center;
+    vertical-align: middle;
+    background-color: #F7F2E0;
+}
+.coltitulos {
+    background-color: #FFCC99 !important;
+    border-left: 1px solid #AAAAAA;
+    border-right: 1px solid #AAAAAA;
+}
+
+.tablaform tr td {
+    border-bottom: 1px solid #AAAAAA;
+    color: black;
+    /*padding: 0.1em 1em;*/
+    text-align: left;
+    vertical-align: middle;
+    background-color: #F7F2E0;
+}
+
