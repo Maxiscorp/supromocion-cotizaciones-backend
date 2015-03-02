@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Supromocion\AdminBundle\Entity\OperadoresPorcentajes" table="operadores_porcentajes">
+    <indexes>
+      <index name="IDX_E87035B161554CFC" columns="idoperador"/>
+    </indexes>
+    <id name="idoperadorPorcentaje" type="integer" column="idoperador_porcentaje">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="importeDesde" type="decimal" column="importe_desde" precision="10" scale="2" nullable="true"/>
+    <field name="importeHasta" type="decimal" column="importe_hasta" precision="10" scale="2" nullable="true"/>
+    <field name="porcentaje" type="decimal" column="porcentaje" precision="3" scale="2" nullable="true"/>
+    <field name="fechaMod" type="datetime" column="fecha_mod" nullable="false"/>
+    <field name="activo" type="boolean" column="activo" nullable="false"/>
+    <many-to-one field="idoperador" target-entity="Operadores">
+      <join-columns>
+        <join-column name="idoperador" referenced-column-name="idoperador"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

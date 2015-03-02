@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Supromocion\AdminBundle\Entity\Clientes" table="clientes">
+    <indexes>
+      <index name="IDX_50FE07D7AD815BE6" columns="idprovincia"/>
+      <index name="IDX_50FE07D7BD2D8053" columns="idcondicion_iva"/>
+    </indexes>
+    <id name="idcliente" type="integer" column="idcliente">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="cuit" type="string" column="cuit" nullable="true"/>
+    <field name="razonSocial" type="string" column="razon_social" nullable="true"/>
+    <field name="nombreComercial" type="string" column="nombre_comercial" nullable="true"/>
+    <field name="contacto" type="string" column="contacto" nullable="true"/>
+    <field name="email" type="string" column="email" nullable="true"/>
+    <field name="telefono" type="string" column="telefono" nullable="true"/>
+    <field name="enviaMailsSeguimiento" type="boolean" column="envia_mails_seguimiento" nullable="false"/>
+    <field name="localidad" type="string" column="localidad" nullable="true"/>
+    <field name="codigoPostal" type="string" column="codigo_postal" nullable="true"/>
+    <field name="fechaAlta" type="datetime" column="fecha_alta" nullable="false"/>
+    <field name="fechaUltimaCotizacionAprobada" type="datetime" column="fecha_ultima_cotizacion_aprobada" nullable="true"/>
+    <field name="activo" type="boolean" column="activo" nullable="false"/>
+    <field name="domicilio" type="string" column="domicilio" nullable="true"/>
+    <many-to-one field="idcondicionIva" target-entity="CondicionesIva">
+      <join-columns>
+        <join-column name="idcondicion_iva" referenced-column-name="idcondicion_iva"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idprovincia" target-entity="Provincias">
+      <join-columns>
+        <join-column name="idprovincia" referenced-column-name="idprovincia"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

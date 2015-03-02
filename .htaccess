@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+
+    # Fix the bundles folder
+	RewriteRule ^(.*)$ /web/$1 [L]
+</IfModule>

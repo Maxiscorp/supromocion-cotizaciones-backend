@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Supromocion\AdminBundle\Entity\EncuestasTipos" table="encuestas_tipos">
+    <id name="idencuestaTipo" type="integer" column="idencuesta_tipo">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="descripcion" type="string" column="descripcion" nullable="true"/>
+    <field name="activo" type="boolean" column="activo" nullable="true"/>
+  </entity>
+</doctrine-mapping>

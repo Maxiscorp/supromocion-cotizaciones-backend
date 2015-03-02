@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Supromocion\AdminBundle\Entity\ProductosImagenes" table="productos_imagenes">
+    <indexes>
+      <index name="IDX_BA5A7315D6E4E18" columns="idproducto"/>
+      <index name="IDX_BA5A7315EA2DE6EC" columns="idarchivo"/>
+    </indexes>
+    <id name="idproductoImagen" type="integer" column="idproducto_imagen">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaIngreso" type="datetime" column="fecha_ingreso" nullable="false"/>
+    <field name="activo" type="boolean" column="activo" nullable="false"/>
+    <many-to-one field="idarchivo" target-entity="Archivos">
+      <join-columns>
+        <join-column name="idarchivo" referenced-column-name="idarchivo"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idproducto" target-entity="Productos">
+      <join-columns>
+        <join-column name="idproducto" referenced-column-name="idproducto"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

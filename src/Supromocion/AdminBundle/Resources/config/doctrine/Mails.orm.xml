@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Supromocion\AdminBundle\Entity\Mails" table="mails">
+    <id name="idmail" type="integer" column="idmail">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="from" type="string" column="from" nullable="true"/>
+    <field name="cc" type="string" column="cc" nullable="true"/>
+    <field name="to" type="string" column="to" nullable="true"/>
+    <field name="asunto" type="string" column="asunto" nullable="true"/>
+    <field name="cuerpo" type="string" column="cuerpo" nullable="true"/>
+  </entity>
+</doctrine-mapping>

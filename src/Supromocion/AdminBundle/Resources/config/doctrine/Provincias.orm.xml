@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Supromocion\AdminBundle\Entity\Provincias" table="provincias">
+    <indexes>
+      <index name="IDX_9F631427AD92DF5F" columns="idpais"/>
+    </indexes>
+    <id name="idprovincia" type="integer" column="idprovincia">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="descripcion" type="string" column="descripcion" nullable="true"/>
+    <field name="activo" type="boolean" column="activo" nullable="false"/>
+    <many-to-one field="idpais" target-entity="Paises">
+      <join-columns>
+        <join-column name="idpais" referenced-column-name="idpais"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Supromocion\AdminBundle\Entity\CotizacionesParciales" table="cotizaciones_parciales">
+    <indexes>
+      <index name="IDX_ECC39332890CF139" columns="idcotizacion"/>
+      <index name="IDX_ECC39332D6E4E18" columns="idproducto"/>
+      <index name="IDX_ECC393325F38370" columns="idimpresion_colores"/>
+      <index name="IDX_ECC39332BCFD0BD0" columns="idimpresion_tipo"/>
+      <index name="IDX_ECC39332BA5C5A0A" columns="idimpresion_fases"/>
+      <index name="IDX_ECC39332339F10E7" columns="idarchivo_logo"/>
+    </indexes>
+    <id name="idcotizacionParcial" type="integer" column="idcotizacion_parcial">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="tiempoProduccion" type="datetime" column="tiempo_produccion" nullable="true"/>
+    <field name="fechaIngreso" type="datetime" column="fecha_ingreso" nullable="false"/>
+    <field name="nota" type="string" column="nota" nullable="true"/>
+    <field name="activo" type="boolean" column="activo" nullable="false"/>
+    <many-to-one field="idimpresionFases" target-entity="ImpresionesFases">
+      <join-columns>
+        <join-column name="idimpresion_fases" referenced-column-name="idimpresion_fases"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idarchivoLogo" target-entity="Archivos">
+      <join-columns>
+        <join-column name="idarchivo_logo" referenced-column-name="idarchivo"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idimpresionTipo" target-entity="ImpresionesTipos">
+      <join-columns>
+        <join-column name="idimpresion_tipo" referenced-column-name="idimpresion_tipo"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idimpresionColores" target-entity="ImpresionesColores">
+      <join-columns>
+        <join-column name="idimpresion_colores" referenced-column-name="idimpresion_colores"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idproducto" target-entity="Productos">
+      <join-columns>
+        <join-column name="idproducto" referenced-column-name="idproducto"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idcotizacion" target-entity="Cotizaciones">
+      <join-columns>
+        <join-column name="idcotizacion" referenced-column-name="idcotizacion"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

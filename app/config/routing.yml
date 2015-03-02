@@ -1,0 +1,4 @@
+supromocion_admin:
+    resource: "@SupromocionAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+

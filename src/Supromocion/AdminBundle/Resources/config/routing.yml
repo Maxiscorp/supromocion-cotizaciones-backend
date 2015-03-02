@@ -1,0 +1,7 @@
+supromocion_admin_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: SupromocionAdminBundle:Default:index }
+
+finalizadas:
+    path:     /cotizaciones/finalizadas
+    defaults: { _controller: SupromocionAdminBundle:Cotizaciones:finalizadas }

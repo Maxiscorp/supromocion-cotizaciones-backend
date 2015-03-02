@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Supromocion\AdminBundle\Entity\Cotizaciones" table="cotizaciones">
+    <indexes>
+      <index name="IDX_12CE14AE12A8C16D" columns="idarchivo_pdf"/>
+      <index name="IDX_12CE14AE2B18C94B" columns="idcliente"/>
+      <index name="IDX_12CE14AE61554CFC" columns="idoperador"/>
+      <index name="IDX_12CE14AE69FA38ED" columns="idcotizacion_estado"/>
+      <index name="IDX_12CE14AEC03BFCA7" columns="idmedio_pago"/>
+    </indexes>
+    <id name="idcotizacion" type="integer" column="idcotizacion">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaIngreso" type="datetime" column="fecha_ingreso" nullable="false"/>
+    <field name="fechaVencimiento" type="datetime" column="fecha_vencimiento" nullable="true"/>
+    <field name="fechaRecontacto" type="datetime" column="fecha_recontacto" nullable="true"/>
+    <field name="recontactar" type="boolean" column="recontactar" nullable="false"/>
+    <field name="condicionesContratacion" type="string" column="condiciones_contratacion" nullable="true"/>
+    <field name="observaciones" type="string" column="observaciones" nullable="true"/>
+    <field name="activo" type="boolean" column="activo" nullable="false"/>
+    <many-to-one field="idmedioPago" target-entity="MediosPago">
+      <join-columns>
+        <join-column name="idmedio_pago" referenced-column-name="idmedio_pago"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idcotizacionEstado" target-entity="CotizacionesEstados">
+      <join-columns>
+        <join-column name="idcotizacion_estado" referenced-column-name="idcotizacion_estado"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idoperador" target-entity="Operadores">
+      <join-columns>
+        <join-column name="idoperador" referenced-column-name="idoperador"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idcliente" target-entity="Clientes">
+      <join-columns>
+        <join-column name="idcliente" referenced-column-name="idcliente"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idarchivoPdf" target-entity="Archivos">
+      <join-columns>
+        <join-column name="idarchivo_pdf" referenced-column-name="idarchivo"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
