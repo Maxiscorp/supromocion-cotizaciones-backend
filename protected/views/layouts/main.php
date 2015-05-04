@@ -26,7 +26,7 @@
 
 	<div id="header">
 		<div class="logo" style="float:left;" ><?php echo "Sistema de cotizaciones"; ?> </div>
-		<div id="logo" style="float:right;"> <img src="http://supromocion.sysnetic.com.ar/images/logo.gif" /></div>
+		<div id="logo" style="float:right;"> <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.gif" /></div>
 		
 	<div class="clear"></div>
 	</div><!-- header -->
@@ -36,7 +36,7 @@
 			'items'=>array(
 				/*array('label'=>'Inicio', 'url'=>array('/site/index'),'visible'=>!Yii::app()->user->isGuest),*/
 				array('label'=>'Cotizaciones', 'url'=>array('/cotizaciones/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="Cotizaciones"?true:false),				
-				array('label'=>'Ordenes de produccion', 'url'=>array('/ordenesproduccion/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="OrdenesProduccion"?true:false),
+				array('label'=>'Ordenes de produccion', 'url'=>array('/ordenes/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="OrdenesProduccion"?true:false),
 				array('label'=>'ABMs', 'url'=>array('/clientes/admin'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="ABMs"?true:false),
 				array('label'=>'Mis Datos', 'url'=>array('/operadores/update'),'visible'=>!Yii::app()->user->isGuest,'active'=>$this->paginamenutabstop==="MisDatos"?true:false),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

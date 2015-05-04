@@ -50,23 +50,29 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         array(
             'class' => 'CButtonColumn',
-            'template' => '{continuar}',
+            'template' => '{continuar}{generarorden}',
            
             'buttons' => array(
-                
+
                 'continuar' => array(
                     'label' => 'Agregar cotizaciones parciales y/o continuar',
-                    'imageUrl' => $this->createUrl('../../images/silk/pencil_add.png'),					
-					'visible'=>'$data->idcotizacion_estado==3',
+                    'imageUrl' => $this->createUrl('../../images/silk/pencil_add.png'),
+                    'visible'=>'$data->idcotizacion_estado==3',
                     'url' => '$this->grid->controller->createUrl("cotizacionesparciales/admin/$data->idcotizacion")',
-                ),				
-				/*'pdf' => array(
-					'label' => 'Ver PDF',					
-					'options'=>array("target"=>"_blank"),                    
-					'url' => '$this->grid->controller->createUrl("cotizaciones/pdf/$data->idcotizacion")',					
-					'visible'=>'$data->idcotizacion_estado==2',                    
-					'imageUrl' => $this->createUrl('../../images/silk/page_white_acrobat.png'),                
-				),*/
+                ),
+                'generarorden' => array(
+                    'label' => 'Generar orden de producción',
+                    'imageUrl' => $this->createUrl('../../images/silk/telephone_go.png'),
+                    'visible'=>'$data->idcotizacion_estado==2',
+                    'url' => '$this->grid->controller->createUrl("ordenes/paso1/$data->idcotizacion")',
+                ),
+                /*'pdf' => array(
+                    'label' => 'Ver PDF',
+                    'options'=>array("target"=>"_blank"),
+                    'url' => '$this->grid->controller->createUrl("cotizaciones/pdf/$data->idcotizacion")',
+                    'visible'=>'$data->idcotizacion_estado==2',
+                    'imageUrl' => $this->createUrl('../../images/silk/page_white_acrobat.png'),
+                ),*/
             )
         ),
     ),

@@ -21,7 +21,8 @@
 .grid-view table.items th
 {
     color: white;
-    background-color: #FF6600;
+    background: url("") repeat-x scroll left top white !important;
+    background-color: #ff6600 !important;
     text-align: center;
 }
 .grid-view table.button-column td a {
@@ -132,4 +133,6 @@ div .tabs_izquierda div.menu ul.listaopciones a img{
     vertical-align: middle;
     background-color: #F7F2E0;
 }
+thead th {background:#ff6600 !important; color:white !important;}
 
+a:focus, a:hover {background-color:#ff6600 !important;color:black !important;}
