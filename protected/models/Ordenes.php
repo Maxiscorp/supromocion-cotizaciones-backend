@@ -44,6 +44,9 @@ class Ordenes extends CActiveRecord
 		return 'ordenes';
 	}
 
+    public $razon_social;
+    public $fecha_desde;
+    public $fecha_hasta;
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -52,12 +55,16 @@ class Ordenes extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idcotizacion, idcliente, entrega_idprovincia', 'numerical', 'integerOnly'=>true),
+            array('idcotizacion, entrega_idprovincia,idcliente', 'numerical', 'integerOnly'=>true),
+            array('porcentaje_facturado', 'numerical', 'allowEmpty' => false,
+                'integerOnly' => false, 'min' => 0, 'max' => 100),
+            array('comision_operador', 'numerical', 'allowEmpty' => false,
+                'integerOnly' => false, 'min' => 0, 'max' => 100),
 			array('porcentaje_facturado, comision_operador', 'length', 'max'=>9),
-			array('nro_presupuesto, fecha, lugar_entrega, activo, entrega_localidad, entrega_codigo_postal, proveedor', 'safe'),
+			array('idcliente,nro_presupuesto, fecha, lugar_entrega, activo, entrega_localidad, entrega_codigo_postal, proveedor', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('idorden, idcotizacion, idcliente, nro_presupuesto, fecha, lugar_entrega, activo, entrega_idprovincia, entrega_localidad, entrega_codigo_postal, porcentaje_facturado, comision_operador, proveedor', 'safe', 'on'=>'search'),
+			array('fecha_hasta,fecha_desde,razon_social,idorden, idcotizacion, idcliente, nro_presupuesto, fecha, lugar_entrega, activo, entrega_idprovincia, entrega_localidad, entrega_codigo_postal, porcentaje_facturado, comision_operador, proveedor', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,14 +91,14 @@ class Ordenes extends CActiveRecord
 		return array(
 			'idorden' => 'Idorden',
 			'idcotizacion' => 'Idcotizacion',
-			'idcliente' => 'Idcliente',
+			'idcliente' => 'Cliente',
 			'nro_presupuesto' => 'Nro Presupuesto',
 			'fecha' => 'Fecha',
-			'lugar_entrega' => 'Lugar Entrega',
+			'lugar_entrega' => 'Lugar de entrega',
 			'activo' => 'Activo',
-			'entrega_idprovincia' => 'Entrega Idprovincia',
-			'entrega_localidad' => 'Entrega Localidad',
-			'entrega_codigo_postal' => 'Entrega Codigo Postal',
+			'entrega_idprovincia' => 'Provincia',
+			'entrega_localidad' => 'Localidad',
+			'entrega_codigo_postal' => 'Codigo postal',
 			'porcentaje_facturado' => 'Porcentaje Facturado',
 			'comision_operador' => 'Comision Operador',
 			'proveedor' => 'Proveedor',
@@ -113,8 +120,11 @@ class Ordenes extends CActiveRecord
 		$criteria->compare('idcotizacion',$this->idcotizacion);
 		$criteria->compare('idcliente',$this->idcliente);
 		$criteria->compare('nro_presupuesto',$this->nro_presupuesto,true);
-		$criteria->compare('fecha',$this->fecha,true);
-		$criteria->compare('lugar_entrega',$this->lugar_entrega,true);
+        if($this->fecha_desde!="" && $this->fecha_hasta!=""){
+
+            $criteria->addBetweenCondition('fecha', $this->fecha_desde, $this->fecha_hasta);
+        }
+        $criteria->compare('lugar_entrega',$this->lugar_entrega,true);
 		$criteria->compare('activo',$this->activo);
 		$criteria->compare('entrega_idprovincia',$this->entrega_idprovincia);
 		$criteria->compare('entrega_localidad',$this->entrega_localidad,true);
@@ -122,9 +132,10 @@ class Ordenes extends CActiveRecord
 		$criteria->compare('porcentaje_facturado',$this->porcentaje_facturado,true);
 		$criteria->compare('comision_operador',$this->comision_operador,true);
 		$criteria->compare('proveedor',$this->proveedor,true);
-
+       /* $criteria->addSearchCondition('idcliente0.razon_social', $this->razon_social);*/
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
 }

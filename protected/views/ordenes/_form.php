@@ -16,10 +16,7 @@
 
     <?php echo $form->errorSummary($model); ?>
     <table class="tablaform">
-        <tr>
-            <td class="coltitulos">
-                <?php echo $form->labelEx($model, 'fecha'); ?>
-            </td>
+
         <tr>
             <td class="coltitulos">
                 <?php echo $form->labelEx($model, 'fecha'); ?>
@@ -28,12 +25,13 @@
 
                 <?php
                 $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                    'name' => 'fecha',
+                    'name' => 'Ordenes[fecha]',
+                    'model'=>$model,
                     // additional javascript options for the date picker plugin
                     'options' => array(
                         'showAnim' => 'fold',
-                        'dateFormat' => 'yymmdd',
-                        'altField' => '#fecha',
+                        'dateFormat' => 'dd-mm-yy',
+                        'altField' => '#Ordenes_fecha',
                         'altFormat' => 'dd/mm/yy', // show to user format
                     ),
                     'htmlOptions' => array(
@@ -51,9 +49,73 @@
                 <?php echo $form->error($model, 'proveedor'); ?>
             </td>
         </tr>
+
+        <tr>
+            </td>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'lugar_entrega');  ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'lugar_entrega', array('size' => 50, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'lugar_entrega'); ?>
+            </td>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'entrega_codigo_postal');  ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'entrega_codigo_postal', array('size' => 12, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'entrega_codigo_postal'); ?>
+            </td>
+
+        </tr>
+        <tr>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'entrega_idprovincia');  ?>
+            </td>
+            <td >
+                <?php
+
+                echo $form->dropDownList($model, 'entrega_idprovincia', CHtml::listData(Provincias::model()->findAll(
+
+                    array(
+
+                        'condition' => 'activo = true',
+
+                        'order' => 'descripcion')), 'idprovincia', 'descripcion'), array('empty' => 'Seleccione'));
+
+                ?>
+            </td>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'porcentaje_facturado');  ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'porcentaje_facturado', array('size' => 12, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'porcentaje_facturado'); ?>
+            </td>
+        </tr>
+        <tr>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'entrega_localidad');  ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'entrega_localidad', array('size' => 50, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'entrega_localidad'); ?>
+            </td>
+            <td class="coltitulos">
+                <?php echo $form->labelEx($model, 'comision_operador');  ?>
+            </td>
+            <td>
+                <?php echo $form->textField($model, 'comision_operador', array('size' => 12, 'maxlength' => 100)); ?>
+                <?php echo $form->error($model, 'comision_operador'); ?>
+            </td>
+
+        </tr>
         <tr>
             <td colspan="4">
+                <?php
 
+                echo $form->hiddenField($model, 'idcliente', array('value'=>''));
+                ?>
                 <?php echo CHtml::submitButton('Agregar'); ?>
             </td>
         </tr>

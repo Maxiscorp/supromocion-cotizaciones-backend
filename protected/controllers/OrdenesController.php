@@ -34,11 +34,11 @@ class OrdenesController extends Controller
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('paso1', 'update'),
+                'actions' => array('paso1', 'update','admin'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
+                'actions' => array( 'delete'),
                 'users' => array('admin'),
             ),
             array('deny',  // deny all users
@@ -65,19 +65,23 @@ class OrdenesController extends Controller
     public function actionPaso1($id)
     {
         $model = new Ordenes;
-        $orden = Cotizaciones::model()->findByPk($id);
+        $cotizacion = Cotizaciones::model()->findByPk($id);
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Ordenes'])) {
             $model->attributes = $_POST['Ordenes'];
+            $model->activo=true;
+            $model->idcotizacion=$id;
+            $model->idcliente=$cotizacion->idcliente;
+            $model->nro_presupuesto=$id;
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->idorden));
         }
 
         $this->render('paso1', array(
             'model' => $model,
-            'orden' => $orden,
+            'cotizacion' => $cotizacion,
         ));
     }
 

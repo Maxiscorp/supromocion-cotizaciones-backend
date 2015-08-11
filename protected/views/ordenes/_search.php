@@ -6,75 +6,98 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+    <?php
+    $form = $this->beginWidget('CActiveForm', array(
+        'action' => Yii::app()->createUrl($this->route),
+        'method' => 'get',
+    ));
+    ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'idorden'); ?>
-		<?php echo $form->textField($model,'idorden'); ?>
-	</div>
+    <table class="tablaform">
+        <tr>
+            <td class="coltitulos">
+                <?php echo CHtml::label('Cuit/Razon social', ''); ?>
+            </td>
+            <td colspan="3">
+                <?php echo $form->hiddenField($model, 'idcliente', array()); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'idcotizacion'); ?>
-		<?php echo $form->textField($model,'idcotizacion'); ?>
-	</div>
+                <?php
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                    'model' => $model,
+                    'attribute' => 'razon_social',
+                    'source' => $this->createUrl('/clientes/buscar'),
+                    'options' =>
+                        array(
+                            'showAnim' => 'fold',
+                            'size' => '30',
+                            'minLength' => '3',
+                            'select' => "js:function(event, ui) {
+                       $('#Ordenes_idcliente').val(ui.item.id);
+                }"
+                        ),
+                    'htmlOptions' => array(
+                        'size' => 60,
+                        'placeholder' => 'Buscar Cliente...',
+                        'maxlength' => 60,
+                    ),
+                ));
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td class="coltitulos">
 
-	<div class="row">
-		<?php echo $form->label($model,'idcliente'); ?>
-		<?php echo $form->textField($model,'idcliente'); ?>
-	</div>
+                <?php echo CHtml::label('Fecha  desde', ''); ?>
+            </td>
+            <td>
+                <?php
+                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                    'name' => 'Ordenes[fecha_desde]',
+                    'model'=>$model,
+                    // additional javascript options for the date picker plugin
+                    'options' => array(
+                        'showAnim' => 'fold',
+                        'dateFormat' => 'yymmdd',
+                        'altField' => '#Ordenes_fecha_desde',
+                        'altFormat' => 'dd/mm/yy', // show to user format
+                    ),
+                    'htmlOptions' => array(
+                        'style' => 'height:20px;'
+                    ),
+                ));
+                ?>
+            </td>
+            <td class="coltitulos">
 
-	<div class="row">
-		<?php echo $form->label($model,'nro_presupuesto'); ?>
-		<?php echo $form->textArea($model,'nro_presupuesto',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+                <?php echo CHtml::label('Fecha hasta', ''); ?>
+            </td>
+            <td>
+                <?php
+                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                    'name' => 'Ordenes[fecha_hasta]',
+                    'model'=>$model,
+                    // additional javascript options for the date picker plugin
+                    'options' => array(
+                        'showAnim' => 'fold',
+                        'dateFormat' => 'yymmdd',
+                        'altField' => '#Ordenes_fecha_hasta',
+                        'altFormat' => 'dd/mm/yy', // show to user format
+                    ),
+                    'htmlOptions' => array(
+                        'style' => 'height:20px;'
+                    ),
+                ));
+                ?>
+            </td>
+        </tr>
 
-	<div class="row">
-		<?php echo $form->label($model,'fecha'); ?>
-		<?php echo $form->textField($model,'fecha'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'lugar_entrega'); ?>
-		<?php echo $form->textArea($model,'lugar_entrega',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+    </table>
 
-	<div class="row">
-		<?php echo $form->label($model,'activo'); ?>
-		<?php echo $form->checkBox($model,'activo'); ?>
-	</div>
+    <div class="row buttons">
+        <?php echo CHtml::submitButton('Buscar'); ?>
+    </div>
 
-	<div class="row">
-		<?php echo $form->label($model,'entrega_idprovincia'); ?>
-		<?php echo $form->textField($model,'entrega_idprovincia'); ?>
-	</div>
+    <?php $this->endWidget(); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'entrega_localidad'); ?>
-		<?php echo $form->textArea($model,'entrega_localidad',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'entrega_codigo_postal'); ?>
-		<?php echo $form->textArea($model,'entrega_codigo_postal',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'porcentaje_facturado'); ?>
-		<?php echo $form->textField($model,'porcentaje_facturado',array('size'=>9,'maxlength'=>9)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'comision_operador'); ?>
-		<?php echo $form->textField($model,'comision_operador',array('size'=>9,'maxlength'=>9)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+</div><!-- search from -->
