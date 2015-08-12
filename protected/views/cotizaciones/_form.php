@@ -44,7 +44,7 @@
                          }"
                     ),
                     'htmlOptions' => array(
-                        'size' => 60,
+                        'size' => 30,
                         'placeholder' => 'Buscar Clientes...',
                         'maxlength' => 60,
                     ),

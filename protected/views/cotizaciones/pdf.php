@@ -110,12 +110,11 @@
 
         </div>
 
-        <div style="text-align: right;font-size: 120%;font-weight: bold;">
+        <div width="734" height="20" style="text-align: right;font-size: 120%;font-weight: bold;">
 
-            Presupuesto N: <?php echo $model->idcotizacion; ?>
+           &nbsp;Presupuesto N: <?php echo $model->idcotizacion; ?>
 
         </div>
-
         <?php
 
         $cotizacionesparciales = CotizacionesParciales::model()->findAllByAttributes(array('idcotizacion' => $model->idcotizacion, 'activo' => 1));
@@ -138,7 +137,19 @@
 
                     <td width="470" style="vertical-align: middle;text-align: center;">
 
-                        <img width="100" height="100" src="<?php echo Yii::getPathOfAlias('archivos') . $cotizacionparcial->idproducto0->productosImagenes[0]->idarchivo0->ruta_archivo; ?>" />
+                        <img width="100" height="100" src="
+                        <?php
+                        if(array_key_exists(0,$cotizacionparcial->idproducto0->productosImagenes)){
+                        $productoRuta=Yii::app()->params['upload_path_base'] . $cotizacionparcial->idproducto0->productosImagenes[0]->idarchivo0->ruta_archivo;
+                        }else{
+                            $productoRuta=Yii::app()->params['upload_path_base'] ."productos/sinimagen.jpg";
+                        }
+                        if(file_exists($productoRuta)){
+                            echo $productoRuta;
+                        }else{
+                            echo Yii::app()->params['upload_path_base'] ."productos/sinimagen.jpg";
+                        }
+                        ?>" />
 
                     </td>
 
@@ -280,7 +291,7 @@
 
         ?>
 
-        <?php 
+        <?php
 
         if(sizeof($cotizacionesparciales)==1){
 
@@ -294,11 +305,12 @@
 
         ?>
 
+        <page_footer>
         <div style="text-align:center;margin: auto auto; width: 220px;">
 
             <div style="width:220px;text-align:left;background-color: #DF8302;font-weight: bold;font-size:80%;color:white;height: 20px;vertical-align: middle;">
 
-                &nbsp; CONDICIONES DE CONTRATACION  
+                &nbsp; CONDICIONES DE CONTRATACION
 
             </div>
 
@@ -340,7 +352,7 @@
 
         <div style="height: 50px;">
 
-            
+
 
         </div>
 
@@ -356,13 +368,14 @@
 
         </div>
 
-        
 
-            
 
-            
 
-            
+
+
+        </page_footer>
+
+
 
     </body>
 

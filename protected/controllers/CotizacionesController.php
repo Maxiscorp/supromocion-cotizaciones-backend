@@ -100,12 +100,25 @@ class CotizacionesController extends Controller {
        
 
         $html2pdf = Yii::app()->ePdf->HTML2PDF();
-
+        //$html2pdf->SetTitle($model->idcliente0->razon_social." - Cotizacion Nro ".$model->idcotizacion);
         $html2pdf->WriteHTML($this->renderPartial('pdf', array('model'=>$model,'cliente'=>$cliente), true));
 
         $html2pdf->output('etc.pdf',EYiiPdf::OUTPUT_TO_BROWSER);
 
-        
+
+        // ES INTERESANTE, PERO YA ESTÁ HECHO
+        /*$mPDF1 = Yii::app()->ePdf->mpdf('utf-8','A4','','',15,15,35,25,9,9,'P'); //Esto lo pueden configurar como quieren, para eso deben de entrar en la web de MPDF para ver todo lo que permite.
+        $mPDF1->useOnlyCoreFonts = true;
+        $mPDF1->SetTitle("JuzgadoSys - Reporte");
+        $mPDF1->SetAuthor("JuzgadoSys");
+        $mPDF1->SetWatermarkText("JuzgadoSys");
+        $mPDF1->showWatermarkText = true;
+        $mPDF1->watermark_font = 'DejaVuSansCondensed';
+        $mPDF1->watermarkTextAlpha = 0.1;
+        $mPDF1->SetDisplayMode('fullpage');
+        $mPDF1->WriteHTML($this->renderPartial('pdf', array('model'=>$model,'cliente'=>$cliente), true)); //hacemos un render partial a una vista preparada, en este caso es la vista pdfReport
+        $mPDF1->Output('Reporte_Productos'.date('YmdHis'),'I');  //Nombre del pdf y parámetro para ver pdf o descargarlo directamente.
+        exit;*/
 
     }
 

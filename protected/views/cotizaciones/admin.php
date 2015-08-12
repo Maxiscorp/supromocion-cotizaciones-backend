@@ -50,7 +50,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         array(
             'class' => 'CButtonColumn',
-            'template' => '{continuar}{generarorden}',
+            'template' => '{continuar}{generarorden}{pdf}',
            
             'buttons' => array(
 
@@ -66,13 +66,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
                     'visible'=>'$data->idcotizacion_estado==2',
                     'url' => '$this->grid->controller->createUrl("ordenes/paso1/$data->idcotizacion")',
                 ),
-                /*'pdf' => array(
+                'pdf' => array(
                     'label' => 'Ver PDF',
                     'options'=>array("target"=>"_blank"),
                     'url' => '$this->grid->controller->createUrl("cotizaciones/pdf/$data->idcotizacion")',
                     'visible'=>'$data->idcotizacion_estado==2',
                     'imageUrl' => $this->createUrl('../../images/silk/page_white_acrobat.png'),
-                ),*/
+                ),
             )
         ),
     ),

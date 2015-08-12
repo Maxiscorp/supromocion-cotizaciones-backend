@@ -45,8 +45,25 @@
 		'porcentaje_facturado',
 		'comision_operador',
 		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
+
+        array(
+            'class' => 'CButtonColumn',
+            'template' => '{pdf}{comentarios}',
+
+            'buttons' => array(
+
+                'pdf' => array(
+                    'label' => 'Ver PDF de la cotizacion relacionada',
+                    'options'=>array("target"=>"_blank"),
+                    'url' => '$this->grid->controller->createUrl("cotizaciones/pdf/$data->idcotizacion")',
+                    'imageUrl' => $this->createUrl('../../images/silk/page_white_acrobat.png'),
+                ),
+                'comentarios' => array(
+                    'label' => 'Ver/Agregar comentarios',
+                    'imageUrl' => $this->createUrl('../../images/silk/comments.png'),
+                    'url' => '$this->grid->controller->createUrl("ordenescomentarios/admin/$data->idorden")',
+                ),
+            )
+        ),
 	),
 )); ?>

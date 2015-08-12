@@ -42,7 +42,7 @@ class OrdenesComentarios extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('idorden', 'numerical', 'integerOnly'=>true),
-			array('comentario, fecha, activo', 'safe'),
+			array('comentario, activo,idorden,activo', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('idorden_comentario, idorden, comentario, fecha, activo', 'safe', 'on'=>'search'),

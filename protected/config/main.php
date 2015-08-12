@@ -1,6 +1,6 @@
 <?php
 
-Yii::setPathOfAlias('archivos', 'http://archivos.sysnetic.com.ar/supromocion');
+Yii::setPathOfAlias('archivos', 'http://supromocion.sysnetic.local/images/files/');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 // This is the main Web application configuration. Any writable
@@ -26,7 +26,7 @@ return array(
             'class' => 'system.gii.GiiModule',
             'password' => 'doraemon7d9',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters' => array('127.0.0.1', '::1', '192.168.2.40', '192.168.2.41', '192.168.2.42', '200.69.30.195','190.210.83.133'),
+            'ipFilters' => array('127.0.0.1', '::1', '192.168.2.40', '192.168.2.41', '192.168.2.42', '200.69.30.195','190.210.83.133','192.168.33.1'),
         ),
     ),
     'behaviors' => array(
@@ -153,7 +153,7 @@ return array(
 // this is used in contact page
         'adminEmail' => 'mtejada@sysnetic.com.ar',
         /* 'upload_path_base' =>  '/home/sysne621/public_html/archivos/supromocion/', */
-        'upload_path_base' => '/home/sysne621/public_html/archivos/supromocion/',
+        'upload_path_base' => '/var/server/www/sysnetic/supromocion-cotizaciones-backend/images/files/',
         'debugEmail' => 'mtejada@sysnetic.com.ar'
     ),
 );
