@@ -1,6 +1,6 @@
 <?php
 
-Yii::setPathOfAlias('archivos', 'http://supromocion.sysnetic.local/images/files/');
+Yii::setPathOfAlias('archivos', 'http://supromocion.sysnetic.com.ar/images/files/');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 // This is the main Web application configuration. Any writable
@@ -153,7 +153,7 @@ return array(
 // this is used in contact page
         'adminEmail' => 'mtejada@sysnetic.com.ar',
         /* 'upload_path_base' =>  '/home/sysne621/public_html/archivos/supromocion/', */
-        'upload_path_base' => '/var/server/www/sysnetic/supromocion-cotizaciones-backend/images/files/',
+        'upload_path_base' => '/var/server/www/supromocion.com.ar/yii/images/files/',
         'debugEmail' => 'mtejada@sysnetic.com.ar'
     ),
 );
